@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,6 +15,38 @@
 		E7ACEE3023BCF39100ABB500 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E7ACEE2F23BCF39100ABB500 /* Assets.xcassets */; };
 		E7ACEE3323BCF39100ABB500 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E7ACEE3223BCF39100ABB500 /* Preview Assets.xcassets */; };
 		E7ACEE3623BCF39100ABB500 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7ACEE3423BCF39100ABB500 /* LaunchScreen.storyboard */; };
+		E7ACEE4023BCF3BF00ABB500 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7ACEE3F23BCF3BF00ABB500 /* CloudKit.framework */; };
+		E7ACEE4823BD1F8100ABB500 /* PaymentSend.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE4723BD1F8100ABB500 /* PaymentSend.swift */; };
+		E7ACEE4A23BD209500ABB500 /* HttpAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE4923BD209500ABB500 /* HttpAuth.swift */; };
+		E7ACEE4D23BD20ED00ABB500 /* Digest32.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE4C23BD20ED00ABB500 /* Digest32.swift */; };
+		E7ACEE4F23BD211900ABB500 /* ErgoAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE4E23BD211900ABB500 /* ErgoAddress.swift */; };
+		E7ACEE5123BD213300ABB500 /* Asset.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE5023BD213300ABB500 /* Asset.swift */; };
+		E7ACEE5323BD214D00ABB500 /* Registers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE5223BD214D00ABB500 /* Registers.swift */; };
+		E7ACEE5523BD216700ABB500 /* BalanceSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE5423BD216700ABB500 /* BalanceSnapshot.swift */; };
+		E7ACEE5723BD21AE00ABB500 /* PaymentRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE5623BD21AE00ABB500 /* PaymentRequest.swift */; };
+		E7ACEE5923BD21C800ABB500 /* SValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE5823BD21C800ABB500 /* SValue.swift */; };
+		E7ACEE5B23BD21E000ABB500 /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE5A23BD21E000ABB500 /* ApiError.swift */; };
+		E7ACEE5E23BD233100ABB500 /* CarBode in Frameworks */ = {isa = PBXBuildFile; productRef = E7ACEE5D23BD233100ABB500 /* CarBode */; };
+		E7ACEE6023BD23E600ABB500 /* SecureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE5F23BD23E600ABB500 /* SecureStore.swift */; };
+		E7ACEE6223BD242B00ABB500 /* SecureStoreQueryable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE6123BD242B00ABB500 /* SecureStoreQueryable.swift */; };
+		E7ACEE6423BD244400ABB500 /* InternetProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE6323BD244400ABB500 /* InternetProtocol.swift */; };
+		E7ACEE6623BD246000ABB500 /* InternetAuthenticationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE6523BD246000ABB500 /* InternetAuthenticationType.swift */; };
+		E7ACEE6823BD247600ABB500 /* SecureStoreError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE6723BD247600ABB500 /* SecureStoreError.swift */; };
+		E7ACEE6B23BD24D400ABB500 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE6A23BD24D400ABB500 /* Utils.swift */; };
+		E7ACEE6F23BD43A300ABB500 /* CarBode2.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE6E23BD43A300ABB500 /* CarBode2.swift */; };
+		E7ACEE7123BD63A100ABB500 /* Payments.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE7023BD63A100ABB500 /* Payments.swift */; };
+		E7ACEE7323BD655900ABB500 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE7223BD655900ABB500 /* Account.swift */; };
+		E7ACEE7523BD851700ABB500 /* Transactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE7423BD851600ABB500 /* Transactions.swift */; };
+		E7ACEE7723BD865600ABB500 /* TransactionId.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE7623BD865600ABB500 /* TransactionId.swift */; };
+		E7ACEE7923BD867500ABB500 /* ErgoTransactionInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE7823BD867500ABB500 /* ErgoTransactionInput.swift */; };
+		E7ACEE7B23BD86AC00ABB500 /* ErgoTransactionDataInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE7A23BD86AC00ABB500 /* ErgoTransactionDataInput.swift */; };
+		E7ACEE7D23BD86E300ABB500 /* ErgoTransactionOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE7C23BD86E300ABB500 /* ErgoTransactionOutput.swift */; };
+		E7ACEE7F23BD872300ABB500 /* TransactionBoxId.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE7E23BD872300ABB500 /* TransactionBoxId.swift */; };
+		E7ACEE8123BD874000ABB500 /* SpendingProof.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE8023BD874000ABB500 /* SpendingProof.swift */; };
+		E7ACEE8323BD876E00ABB500 /* ErgoTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE8223BD876E00ABB500 /* ErgoTree.swift */; };
+		E7ACEE8523BD879A00ABB500 /* SpendingProofBytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE8423BD879A00ABB500 /* SpendingProofBytes.swift */; };
+		E7ACEE8723BD89A900ABB500 /* TransactionDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE8623BD89A900ABB500 /* TransactionDetails.swift */; };
+		E7ACEE8923BE7D1400ABB500 /* KeyboardResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE8823BE7D1400ABB500 /* KeyboardResponder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +60,39 @@
 		E7ACEE3223BCF39100ABB500 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		E7ACEE3523BCF39100ABB500 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E7ACEE3723BCF39100ABB500 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E7ACEE3D23BCF3B900ABB500 /* ErgoIOSLiteClient.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ErgoIOSLiteClient.entitlements; sourceTree = "<group>"; };
+		E7ACEE3F23BCF3BF00ABB500 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		E7ACEE4723BD1F8100ABB500 /* PaymentSend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSend.swift; sourceTree = "<group>"; };
+		E7ACEE4923BD209500ABB500 /* HttpAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpAuth.swift; sourceTree = "<group>"; };
+		E7ACEE4C23BD20ED00ABB500 /* Digest32.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Digest32.swift; sourceTree = "<group>"; };
+		E7ACEE4E23BD211900ABB500 /* ErgoAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErgoAddress.swift; sourceTree = "<group>"; };
+		E7ACEE5023BD213300ABB500 /* Asset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Asset.swift; sourceTree = "<group>"; };
+		E7ACEE5223BD214D00ABB500 /* Registers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Registers.swift; sourceTree = "<group>"; };
+		E7ACEE5423BD216700ABB500 /* BalanceSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceSnapshot.swift; sourceTree = "<group>"; };
+		E7ACEE5623BD21AE00ABB500 /* PaymentRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentRequest.swift; sourceTree = "<group>"; };
+		E7ACEE5823BD21C800ABB500 /* SValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SValue.swift; sourceTree = "<group>"; };
+		E7ACEE5A23BD21E000ABB500 /* ApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
+		E7ACEE5F23BD23E600ABB500 /* SecureStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStore.swift; sourceTree = "<group>"; };
+		E7ACEE6123BD242B00ABB500 /* SecureStoreQueryable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStoreQueryable.swift; sourceTree = "<group>"; };
+		E7ACEE6323BD244400ABB500 /* InternetProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetProtocol.swift; sourceTree = "<group>"; };
+		E7ACEE6523BD246000ABB500 /* InternetAuthenticationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetAuthenticationType.swift; sourceTree = "<group>"; };
+		E7ACEE6723BD247600ABB500 /* SecureStoreError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStoreError.swift; sourceTree = "<group>"; };
+		E7ACEE6923BD249A00ABB500 /* SecureStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecureStore.h; sourceTree = "<group>"; };
+		E7ACEE6A23BD24D400ABB500 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		E7ACEE6E23BD43A300ABB500 /* CarBode2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarBode2.swift; sourceTree = "<group>"; };
+		E7ACEE7023BD63A100ABB500 /* Payments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payments.swift; sourceTree = "<group>"; };
+		E7ACEE7223BD655900ABB500 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		E7ACEE7423BD851600ABB500 /* Transactions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transactions.swift; sourceTree = "<group>"; };
+		E7ACEE7623BD865600ABB500 /* TransactionId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionId.swift; sourceTree = "<group>"; };
+		E7ACEE7823BD867500ABB500 /* ErgoTransactionInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErgoTransactionInput.swift; sourceTree = "<group>"; };
+		E7ACEE7A23BD86AC00ABB500 /* ErgoTransactionDataInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErgoTransactionDataInput.swift; sourceTree = "<group>"; };
+		E7ACEE7C23BD86E300ABB500 /* ErgoTransactionOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErgoTransactionOutput.swift; sourceTree = "<group>"; };
+		E7ACEE7E23BD872300ABB500 /* TransactionBoxId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionBoxId.swift; sourceTree = "<group>"; };
+		E7ACEE8023BD874000ABB500 /* SpendingProof.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendingProof.swift; sourceTree = "<group>"; };
+		E7ACEE8223BD876E00ABB500 /* ErgoTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErgoTree.swift; sourceTree = "<group>"; };
+		E7ACEE8423BD879A00ABB500 /* SpendingProofBytes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendingProofBytes.swift; sourceTree = "<group>"; };
+		E7ACEE8623BD89A900ABB500 /* TransactionDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetails.swift; sourceTree = "<group>"; };
+		E7ACEE8823BE7D1400ABB500 /* KeyboardResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardResponder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +100,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E7ACEE4023BCF3BF00ABB500 /* CloudKit.framework in Frameworks */,
+				E7ACEE5E23BD233100ABB500 /* CarBode in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -46,6 +113,7 @@
 			children = (
 				E7ACEE2323BCF38D00ABB500 /* ErgoIOSLiteClient */,
 				E7ACEE2223BCF38D00ABB500 /* Products */,
+				E7ACEE3E23BCF3BF00ABB500 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -60,6 +128,8 @@
 		E7ACEE2323BCF38D00ABB500 /* ErgoIOSLiteClient */ = {
 			isa = PBXGroup;
 			children = (
+				E7ACEE4B23BD20D700ABB500 /* Models */,
+				E7ACEE3D23BCF3B900ABB500 /* ErgoIOSLiteClient.entitlements */,
 				E7ACEE2423BCF38D00ABB500 /* AppDelegate.swift */,
 				E7ACEE2923BCF38D00ABB500 /* SceneDelegate.swift */,
 				E7ACEE2B23BCF38D00ABB500 /* Event.swift */,
@@ -69,6 +139,20 @@
 				E7ACEE3723BCF39100ABB500 /* Info.plist */,
 				E7ACEE2623BCF38D00ABB500 /* ErgoIOSLiteClient.xcdatamodeld */,
 				E7ACEE3123BCF39100ABB500 /* Preview Content */,
+				E7ACEE4723BD1F8100ABB500 /* PaymentSend.swift */,
+				E7ACEE4923BD209500ABB500 /* HttpAuth.swift */,
+				E7ACEE5F23BD23E600ABB500 /* SecureStore.swift */,
+				E7ACEE6123BD242B00ABB500 /* SecureStoreQueryable.swift */,
+				E7ACEE6323BD244400ABB500 /* InternetProtocol.swift */,
+				E7ACEE6523BD246000ABB500 /* InternetAuthenticationType.swift */,
+				E7ACEE6723BD247600ABB500 /* SecureStoreError.swift */,
+				E7ACEE6923BD249A00ABB500 /* SecureStore.h */,
+				E7ACEE6A23BD24D400ABB500 /* Utils.swift */,
+				E7ACEE6E23BD43A300ABB500 /* CarBode2.swift */,
+				E7ACEE7023BD63A100ABB500 /* Payments.swift */,
+				E7ACEE7223BD655900ABB500 /* Account.swift */,
+				E7ACEE8623BD89A900ABB500 /* TransactionDetails.swift */,
+				E7ACEE8823BE7D1400ABB500 /* KeyboardResponder.swift */,
 			);
 			path = ErgoIOSLiteClient;
 			sourceTree = "<group>";
@@ -79,6 +163,38 @@
 				E7ACEE3223BCF39100ABB500 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		E7ACEE3E23BCF3BF00ABB500 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E7ACEE3F23BCF3BF00ABB500 /* CloudKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E7ACEE4B23BD20D700ABB500 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E7ACEE4C23BD20ED00ABB500 /* Digest32.swift */,
+				E7ACEE4E23BD211900ABB500 /* ErgoAddress.swift */,
+				E7ACEE5023BD213300ABB500 /* Asset.swift */,
+				E7ACEE5223BD214D00ABB500 /* Registers.swift */,
+				E7ACEE5423BD216700ABB500 /* BalanceSnapshot.swift */,
+				E7ACEE5623BD21AE00ABB500 /* PaymentRequest.swift */,
+				E7ACEE5823BD21C800ABB500 /* SValue.swift */,
+				E7ACEE5A23BD21E000ABB500 /* ApiError.swift */,
+				E7ACEE7423BD851600ABB500 /* Transactions.swift */,
+				E7ACEE7623BD865600ABB500 /* TransactionId.swift */,
+				E7ACEE7823BD867500ABB500 /* ErgoTransactionInput.swift */,
+				E7ACEE7A23BD86AC00ABB500 /* ErgoTransactionDataInput.swift */,
+				E7ACEE7C23BD86E300ABB500 /* ErgoTransactionOutput.swift */,
+				E7ACEE7E23BD872300ABB500 /* TransactionBoxId.swift */,
+				E7ACEE8023BD874000ABB500 /* SpendingProof.swift */,
+				E7ACEE8223BD876E00ABB500 /* ErgoTree.swift */,
+				E7ACEE8423BD879A00ABB500 /* SpendingProofBytes.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -97,6 +213,9 @@
 			dependencies = (
 			);
 			name = ErgoIOSLiteClient;
+			packageProductDependencies = (
+				E7ACEE5D23BD233100ABB500 /* CarBode */,
+			);
 			productName = ErgoIOSLiteClient;
 			productReference = E7ACEE2123BCF38D00ABB500 /* ErgoIOSLiteClient.app */;
 			productType = "com.apple.product-type.application";
@@ -125,6 +244,9 @@
 				Base,
 			);
 			mainGroup = E7ACEE1823BCF38D00ABB500;
+			packageReferences = (
+				E7ACEE5C23BD233100ABB500 /* XCRemoteSwiftPackageReference "CarBode-Barcode-Scanner-For-SwiftUI" */,
+			);
 			productRefGroup = E7ACEE2223BCF38D00ABB500 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -152,11 +274,41 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E7ACEE6023BD23E600ABB500 /* SecureStore.swift in Sources */,
+				E7ACEE4823BD1F8100ABB500 /* PaymentSend.swift in Sources */,
 				E7ACEE2C23BCF38D00ABB500 /* Event.swift in Sources */,
+				E7ACEE6623BD246000ABB500 /* InternetAuthenticationType.swift in Sources */,
+				E7ACEE5523BD216700ABB500 /* BalanceSnapshot.swift in Sources */,
+				E7ACEE7323BD655900ABB500 /* Account.swift in Sources */,
+				E7ACEE8323BD876E00ABB500 /* ErgoTree.swift in Sources */,
+				E7ACEE7B23BD86AC00ABB500 /* ErgoTransactionDataInput.swift in Sources */,
+				E7ACEE7F23BD872300ABB500 /* TransactionBoxId.swift in Sources */,
+				E7ACEE8123BD874000ABB500 /* SpendingProof.swift in Sources */,
+				E7ACEE5923BD21C800ABB500 /* SValue.swift in Sources */,
+				E7ACEE6F23BD43A300ABB500 /* CarBode2.swift in Sources */,
+				E7ACEE7923BD867500ABB500 /* ErgoTransactionInput.swift in Sources */,
+				E7ACEE5123BD213300ABB500 /* Asset.swift in Sources */,
 				E7ACEE2E23BCF38D00ABB500 /* ContentView.swift in Sources */,
+				E7ACEE7523BD851700ABB500 /* Transactions.swift in Sources */,
 				E7ACEE2523BCF38D00ABB500 /* AppDelegate.swift in Sources */,
 				E7ACEE2823BCF38D00ABB500 /* ErgoIOSLiteClient.xcdatamodeld in Sources */,
+				E7ACEE5B23BD21E000ABB500 /* ApiError.swift in Sources */,
+				E7ACEE6823BD247600ABB500 /* SecureStoreError.swift in Sources */,
+				E7ACEE4F23BD211900ABB500 /* ErgoAddress.swift in Sources */,
+				E7ACEE7D23BD86E300ABB500 /* ErgoTransactionOutput.swift in Sources */,
+				E7ACEE5723BD21AE00ABB500 /* PaymentRequest.swift in Sources */,
+				E7ACEE8923BE7D1400ABB500 /* KeyboardResponder.swift in Sources */,
+				E7ACEE6423BD244400ABB500 /* InternetProtocol.swift in Sources */,
 				E7ACEE2A23BCF38D00ABB500 /* SceneDelegate.swift in Sources */,
+				E7ACEE7723BD865600ABB500 /* TransactionId.swift in Sources */,
+				E7ACEE4D23BD20ED00ABB500 /* Digest32.swift in Sources */,
+				E7ACEE6B23BD24D400ABB500 /* Utils.swift in Sources */,
+				E7ACEE6223BD242B00ABB500 /* SecureStoreQueryable.swift in Sources */,
+				E7ACEE5323BD214D00ABB500 /* Registers.swift in Sources */,
+				E7ACEE4A23BD209500ABB500 /* HttpAuth.swift in Sources */,
+				E7ACEE8723BD89A900ABB500 /* TransactionDetails.swift in Sources */,
+				E7ACEE7123BD63A100ABB500 /* Payments.swift in Sources */,
+				E7ACEE8523BD879A00ABB500 /* SpendingProofBytes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,6 +444,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ErgoIOSLiteClient/ErgoIOSLiteClient.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"ErgoIOSLiteClient/Preview Content\"";
 				DEVELOPMENT_TEAM = RKMCP6WLZG;
@@ -312,6 +465,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ErgoIOSLiteClient/ErgoIOSLiteClient.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"ErgoIOSLiteClient/Preview Content\"";
 				DEVELOPMENT_TEAM = RKMCP6WLZG;
@@ -350,6 +504,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E7ACEE5C23BD233100ABB500 /* XCRemoteSwiftPackageReference "CarBode-Barcode-Scanner-For-SwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/heart/CarBode-Barcode-Scanner-For-SwiftUI";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E7ACEE5D23BD233100ABB500 /* CarBode */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E7ACEE5C23BD233100ABB500 /* XCRemoteSwiftPackageReference "CarBode-Barcode-Scanner-For-SwiftUI" */;
+			productName = CarBode;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		E7ACEE2623BCF38D00ABB500 /* ErgoIOSLiteClient.xcdatamodeld */ = {
