@@ -1,5 +1,5 @@
 //
-//  Event.swift
+//  Payment_E.swift
 //  ErgoIOSLiteClient
 //
 //  Created by Bart Jenkins on 1/1/20.
@@ -9,10 +9,10 @@
 import SwiftUI
 import CoreData
 
-extension Event {
+extension Payment_E {
     static func create(in managedObjectContext: NSManagedObjectContext){
-        let newEvent = self.init(context: managedObjectContext)
-        newEvent.timestamp = Date()
+        let newPayment_E = self.init(context: managedObjectContext)
+        newPayment_E.timestamp = Date()
         
         do {
             try  managedObjectContext.save()
@@ -25,7 +25,7 @@ extension Event {
     }   
 }
 
-extension Collection where Element == Event, Index == Int {
+extension Collection where Element == Payment_E, Index == Int {
     func delete(at indices: IndexSet, from managedObjectContext: NSManagedObjectContext) {
         indices.forEach { managedObjectContext.delete(self[$0]) }       
  
