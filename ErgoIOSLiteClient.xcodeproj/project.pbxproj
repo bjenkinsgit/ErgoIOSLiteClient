@@ -34,7 +34,7 @@
 		E7ACEE6B23BD24D400ABB500 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE6A23BD24D400ABB500 /* Utils.swift */; };
 		E7ACEE6F23BD43A300ABB500 /* CarBode2.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE6E23BD43A300ABB500 /* CarBode2.swift */; };
 		E7ACEE7123BD63A100ABB500 /* Payments.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE7023BD63A100ABB500 /* Payments.swift */; };
-		E7ACEE7323BD655900ABB500 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE7223BD655900ABB500 /* Account.swift */; };
+		E7ACEE7323BD655900ABB500 /* AccountSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE7223BD655900ABB500 /* AccountSettingsView.swift */; };
 		E7ACEE7523BD851700ABB500 /* Transactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE7423BD851600ABB500 /* Transactions.swift */; };
 		E7ACEE7723BD865600ABB500 /* TransactionId.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE7623BD865600ABB500 /* TransactionId.swift */; };
 		E7ACEE7923BD867500ABB500 /* ErgoTransactionInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE7823BD867500ABB500 /* ErgoTransactionInput.swift */; };
@@ -47,6 +47,7 @@
 		E7ACEE8723BD89A900ABB500 /* TransactionDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE8623BD89A900ABB500 /* TransactionDetails.swift */; };
 		E7ACEE8923BE7D1400ABB500 /* KeyboardResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE8823BE7D1400ABB500 /* KeyboardResponder.swift */; };
 		E7B2B1B223C2DD5B0045ABB7 /* WalletAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B2B1B123C2DD5B0045ABB7 /* WalletAPI.swift */; };
+		E7B2B1B523C666820045ABB7 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B2B1B423C666820045ABB7 /* Account.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,7 +82,7 @@
 		E7ACEE6A23BD24D400ABB500 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		E7ACEE6E23BD43A300ABB500 /* CarBode2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarBode2.swift; sourceTree = "<group>"; };
 		E7ACEE7023BD63A100ABB500 /* Payments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payments.swift; sourceTree = "<group>"; };
-		E7ACEE7223BD655900ABB500 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		E7ACEE7223BD655900ABB500 /* AccountSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingsView.swift; sourceTree = "<group>"; };
 		E7ACEE7423BD851600ABB500 /* Transactions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transactions.swift; sourceTree = "<group>"; };
 		E7ACEE7623BD865600ABB500 /* TransactionId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionId.swift; sourceTree = "<group>"; };
 		E7ACEE7823BD867500ABB500 /* ErgoTransactionInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErgoTransactionInput.swift; sourceTree = "<group>"; };
@@ -94,6 +95,7 @@
 		E7ACEE8623BD89A900ABB500 /* TransactionDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetails.swift; sourceTree = "<group>"; };
 		E7ACEE8823BE7D1400ABB500 /* KeyboardResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardResponder.swift; sourceTree = "<group>"; };
 		E7B2B1B123C2DD5B0045ABB7 /* WalletAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletAPI.swift; sourceTree = "<group>"; };
+		E7B2B1B423C666820045ABB7 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,7 +130,8 @@
 		E7ACEE2323BCF38D00ABB500 /* ErgoIOSLiteClient */ = {
 			isa = PBXGroup;
 			children = (
-				E7ACEE4B23BD20D700ABB500 /* Models */,
+				E7B2B1B323C666700045ABB7 /* Models */,
+				E7ACEE4B23BD20D700ABB500 /* SwaggerModels */,
 				E7ACEE3D23BCF3B900ABB500 /* ErgoIOSLiteClient.entitlements */,
 				E773E38F23C24E86002F9D73 /* Media.xcassets */,
 				E7ACEE2423BCF38D00ABB500 /* AppDelegate.swift */,
@@ -150,7 +153,7 @@
 				E7ACEE6A23BD24D400ABB500 /* Utils.swift */,
 				E7ACEE6E23BD43A300ABB500 /* CarBode2.swift */,
 				E7ACEE7023BD63A100ABB500 /* Payments.swift */,
-				E7ACEE7223BD655900ABB500 /* Account.swift */,
+				E7ACEE7223BD655900ABB500 /* AccountSettingsView.swift */,
 				E7ACEE8623BD89A900ABB500 /* TransactionDetails.swift */,
 				E7ACEE8823BE7D1400ABB500 /* KeyboardResponder.swift */,
 			);
@@ -173,7 +176,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		E7ACEE4B23BD20D700ABB500 /* Models */ = {
+		E7ACEE4B23BD20D700ABB500 /* SwaggerModels */ = {
 			isa = PBXGroup;
 			children = (
 				E7ACEE4C23BD20ED00ABB500 /* Digest32.swift */,
@@ -194,6 +197,14 @@
 				E7ACEE8223BD876E00ABB500 /* ErgoTree.swift */,
 				E7ACEE8423BD879A00ABB500 /* SpendingProofBytes.swift */,
 				E7B2B1B123C2DD5B0045ABB7 /* WalletAPI.swift */,
+			);
+			path = SwaggerModels;
+			sourceTree = "<group>";
+		};
+		E7B2B1B323C666700045ABB7 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E7B2B1B423C666820045ABB7 /* Account.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -278,9 +289,10 @@
 				E7ACEE2C23BCF38D00ABB500 /* Payment_E.swift in Sources */,
 				E7ACEE6623BD246000ABB500 /* InternetAuthenticationType.swift in Sources */,
 				E7ACEE5523BD216700ABB500 /* BalanceSnapshot.swift in Sources */,
-				E7ACEE7323BD655900ABB500 /* Account.swift in Sources */,
+				E7ACEE7323BD655900ABB500 /* AccountSettingsView.swift in Sources */,
 				E7ACEE8323BD876E00ABB500 /* ErgoTree.swift in Sources */,
 				E7ACEE7B23BD86AC00ABB500 /* ErgoTransactionDataInput.swift in Sources */,
+				E7B2B1B523C666820045ABB7 /* Account.swift in Sources */,
 				E7ACEE7F23BD872300ABB500 /* TransactionBoxId.swift in Sources */,
 				E7ACEE8123BD874000ABB500 /* SpendingProof.swift in Sources */,
 				E7ACEE5923BD21C800ABB500 /* SValue.swift in Sources */,
