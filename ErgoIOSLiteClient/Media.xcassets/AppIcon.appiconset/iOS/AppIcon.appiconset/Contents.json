@@ -1,22 +1,28 @@
 {
   "images" : [
-    {
+	{
       "size" : "20x20",
-      "idiom" : "iphone",
-      "filename" : "ErgoIcon-20@2x.png",
-      "scale" : "2x"
+      "idiom": "iphone",
+	  "filename" : "ErgoIcon-20@2x.png",
+      "scale": "2x"
+    },
+	{
+      "size" : "20x20",
+      "idiom": "iphone",
+	  "filename" : "ErgoIcon-20@3x.png",
+      "scale": "3x"
+    },
+	{
+      "size" : "20x20",
+      "idiom": "ipad",
+	  "filename" : "ErgoIcon-20.png",
+      "scale": "1x"
     },
     {
       "size" : "20x20",
-      "idiom" : "iphone",
-      "filename" : "ErgoIcon-20@3x.png",
-      "scale" : "3x"
-    },
-    {
-      "size" : "29x29",
-      "idiom" : "iphone",
-      "filename" : "ErgoIcon-29.png",
-      "scale" : "1x"
+      "idiom": "ipad",
+	  "filename" : "ErgoIcon-20@2x.png",
+      "scale": "2x"
     },
     {
       "size" : "29x29",
@@ -55,87 +61,50 @@
       "scale" : "3x"
     },
     {
-      "idiom" : "ipad",
-      "size" : "20x20",
-      "scale" : "1x"
-    },
-    {
-      "idiom" : "ipad",
-      "size" : "20x20",
-      "scale" : "2x"
-    },
-    {
-      "idiom" : "ipad",
       "size" : "29x29",
+      "idiom" : "ipad",
+      "filename" : "ErgoIcon-29.png",
       "scale" : "1x"
     },
     {
-      "idiom" : "ipad",
       "size" : "29x29",
-      "scale" : "2x"
-    },
-    {
       "idiom" : "ipad",
-      "size" : "40x40",
-      "scale" : "1x"
-    },
-    {
-      "idiom" : "ipad",
-      "size" : "40x40",
+      "filename" : "ErgoIcon-29@2x.png",
       "scale" : "2x"
-    },
-    {
-      "idiom" : "ipad",
-      "size" : "76x76",
-      "scale" : "1x"
-    },
-    {
-      "idiom" : "ipad",
-      "size" : "76x76",
-      "scale" : "2x"
-    },
-    {
-      "idiom" : "ipad",
-      "size" : "83.5x83.5",
-      "scale" : "2x"
-    },
-    {
-      "idiom" : "ios-marketing",
-      "size" : "1024x1024",
-      "scale" : "1x"
-    },
-    {
-      "idiom" : "universal",
-      "filename" : "ErgoIcon-83.5@2x.png",
-      "scale" : "2x"
-    },
-    {
-      "size" : "20x20",
-      "idiom" : "universal",
-      "filename" : "ErgoIcon-20.png",
-      "scale" : "1x"
     },
     {
       "size" : "40x40",
-      "idiom" : "universal",
+      "idiom" : "ipad",
       "filename" : "ErgoIcon-40.png",
       "scale" : "1x"
     },
     {
+      "size" : "40x40",
+      "idiom" : "ipad",
+      "filename" : "ErgoIcon-40@2x.png",
+      "scale" : "2x"
+    },
+    {
       "size" : "76x76",
-      "idiom" : "universal",
+      "idiom" : "ipad",
       "filename" : "ErgoIcon-76.png",
       "scale" : "1x"
     },
     {
       "size" : "76x76",
-      "idiom" : "universal",
+      "idiom" : "ipad",
       "filename" : "ErgoIcon-76@2x.png",
       "scale" : "2x"
     },
     {
+      "size" : "83.5x83.5",
+      "idiom" : "ipad",
+      "filename" : "ErgoIcon-83.5@2x.png",
+      "scale" : "2x"
+    },
+    {
       "size" : "1024x1024",
-      "idiom" : "universal",
+      "idiom" : "ios-marketing",
       "filename" : "ErgoIcon-1024.png",
       "scale" : "1x"
     }

@@ -13,6 +13,9 @@ struct ERGO_API_ROUTES {
   static let wallet_unlock_get  = "/wallet/unlock"
   static let wallet_send_payment_post  = "/wallet/payment/send"
   static let wallet_tranz_by_id_get = "/wallet/transactionById"
+  static let wallet_unlock_post = "/wallet/unlock"
+  static let wallet_lock_get = "/wallet/lock"
+  static let wallet_status_get = "/wallet/status"
 }
 
 let dateFormatter: DateFormatter = {

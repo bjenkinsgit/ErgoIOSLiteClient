@@ -46,6 +46,7 @@
 		E7ACEE8523BD879A00ABB500 /* SpendingProofBytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE8423BD879A00ABB500 /* SpendingProofBytes.swift */; };
 		E7ACEE8723BD89A900ABB500 /* TransactionDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE8623BD89A900ABB500 /* TransactionDetails.swift */; };
 		E7ACEE8923BE7D1400ABB500 /* KeyboardResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE8823BE7D1400ABB500 /* KeyboardResponder.swift */; };
+		E7B2B1B223C2DD5B0045ABB7 /* WalletAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B2B1B123C2DD5B0045ABB7 /* WalletAPI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -92,6 +93,7 @@
 		E7ACEE8423BD879A00ABB500 /* SpendingProofBytes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendingProofBytes.swift; sourceTree = "<group>"; };
 		E7ACEE8623BD89A900ABB500 /* TransactionDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetails.swift; sourceTree = "<group>"; };
 		E7ACEE8823BE7D1400ABB500 /* KeyboardResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardResponder.swift; sourceTree = "<group>"; };
+		E7B2B1B123C2DD5B0045ABB7 /* WalletAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletAPI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,6 +193,7 @@
 				E7ACEE8023BD874000ABB500 /* SpendingProof.swift */,
 				E7ACEE8223BD876E00ABB500 /* ErgoTree.swift */,
 				E7ACEE8423BD879A00ABB500 /* SpendingProofBytes.swift */,
+				E7B2B1B123C2DD5B0045ABB7 /* WalletAPI.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -296,6 +299,7 @@
 				E7ACEE8923BE7D1400ABB500 /* KeyboardResponder.swift in Sources */,
 				E7ACEE6423BD244400ABB500 /* InternetProtocol.swift in Sources */,
 				E7ACEE2A23BCF38D00ABB500 /* SceneDelegate.swift in Sources */,
+				E7B2B1B223C2DD5B0045ABB7 /* WalletAPI.swift in Sources */,
 				E7ACEE7723BD865600ABB500 /* TransactionId.swift in Sources */,
 				E7ACEE4D23BD20ED00ABB500 /* Digest32.swift in Sources */,
 				E7ACEE6B23BD24D400ABB500 /* Utils.swift in Sources */,

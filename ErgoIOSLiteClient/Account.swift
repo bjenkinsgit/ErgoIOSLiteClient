@@ -17,7 +17,6 @@ struct Account: View {
     @State private var authKeyOrig = ""
     @State private var authKeyPwd = ""
     @State private var authKeyPwdOrig = ""
-    @State private var showSendTo = false
     @State private var showingSaveSucessAlert = false
     @State private var showSaveButton = false
     @State private var showAuthKeyField = false
@@ -25,13 +24,13 @@ struct Account: View {
     @State private var ergoApiUrl = ""
     @State private var ergoApiUrlOrig = ""
     @State private var currLockClicked = 0 // 1 means authKey, 2 means authKeyPwd
+    @ObservedObject private var keyboard = KeyboardResponder()
 
     var body: some View {
         let authKeyBinding = Binding<String>(get: {
             self.authkey
         }, set: {
             self.authkey = $0
-            self.showSendTo = !self.authkey.isEmpty && !self.authKeyPwd.isEmpty
             self.showSaveButton = (self.authkey != self.authKeyOrig ||
                 self.authKeyPwd != self.authKeyPwdOrig)
         })
@@ -39,7 +38,6 @@ struct Account: View {
             self.authKeyPwd
         }, set: {
             self.authKeyPwd = $0
-            self.showSendTo = !self.authkey.isEmpty && !self.authKeyPwd.isEmpty
             self.showSaveButton = (self.authkey != self.authKeyOrig ||
                 self.authKeyPwd != self.authKeyPwdOrig)
         })
@@ -118,7 +116,11 @@ struct Account: View {
             .alert(isPresented: $showingSaveSucessAlert) {
                Alert(title: Text("Keychain Updated"), message: Text("AUTH DATA STORED SECURELY IN KEYCHAIN!"), dismissButton: .default(Text("OK")))
             }
-        }.onAppear(perform: initForm) // Nav view
+        }.onAppear(perform: initForm)
+         .navigationViewStyle(StackNavigationViewStyle())  
+        .padding(.bottom, keyboard.currentHeight)
+        .edgesIgnoringSafeArea(.bottom)
+        .animation(.easeOut(duration: 0.16))// Nav view
     }
     
     func authenticate() {
@@ -169,7 +171,7 @@ struct Account: View {
             authKeyPwdOrig = authKeyPwd
             ergoApiUrl = try (secureStoreWithGenericPwd.getValue(for: "ergoApiUrl") ?? "")
             ergoApiUrlOrig = ergoApiUrl
-            showSendTo = (authkey.count>0 && authKeyPwd.count>0 && ergoApiUrl.count>0)
+//            showSendTo = (authkey.count>0 && authKeyPwd.count>0 && ergoApiUrl.count>0)
         } catch (let e) {
           print("EXCEPTION: Loading authkey and authKeyPwd failed with \(e.localizedDescription).")
         }
@@ -184,10 +186,10 @@ struct Account: View {
     
     func saveAuthData()-> Bool {
       do {
-        try secureStoreWithGenericPwd.setValue(authkey, for: "authkey")
-        try secureStoreWithGenericPwd.setValue(authKeyPwd, for: "authKeyPwd")
-        try secureStoreWithGenericPwd.setValue(ergoApiUrl, for: "ergoApiUrl")
-        return true
+            try secureStoreWithGenericPwd.setValue(authkey, for: "authkey")
+            try secureStoreWithGenericPwd.setValue(authKeyPwd, for: "authKeyPwd")
+            try secureStoreWithGenericPwd.setValue(ergoApiUrl, for: "ergoApiUrl")
+            return true
       } catch (let e) {
         print("EXCEPTION: Saving authkey and authKeyPwd failed with \(e.localizedDescription).")
         return false

@@ -9,6 +9,12 @@
 import SwiftUI
 import LocalAuthentication
 
+extension UIApplication {
+    func endEditing() {
+        sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+}
+
 struct PaymentSend: View {
     @ObservedObject var event: Payment_E
     @State var secureStoreWithGenericPwd: SecureStore!
@@ -20,20 +26,44 @@ struct PaymentSend: View {
     @State private var send2Amt = ""
     @State private var memo = ""
     @State private var showBarCodeScanner = false
+    @State private var isOkToMakePmt = false
     @ObservedObject private var keyboard = KeyboardResponder()
 
       var body: some View {
-         NavigationView {
-            VStack {
+        let memoBinding = Binding<String>(get: {
+            self.memo
+        }, set: {
+            self.memo = $0
+            self.checkIsOkToMakePmt()
+        })
+
+         let send2AddressBinding = Binding<String>(get: {
+             self.send2Address
+         }, set: {
+             self.send2Address = $0
+            self.checkIsOkToMakePmt()
+         })
+
+         let send2AmtBinding = Binding<String>(get: {
+             self.send2Amt
+         }, set: {
+             self.send2Amt = $0
+            self.checkIsOkToMakePmt()
+         })
+       
+         return NavigationView {
+             VStack {
                Section {
-                   Text("Payment creation date:")
+                 Text("Payment creation date:")
+                 if (event.timestamp != nil) {
                    Text("\(event.timestamp!, formatter: dateFormatter)").padding(.bottom, 100)
+                 }
                }
                
                Section {
                    VStack(alignment: .leading) {
                      Text("Memo:")
-                       TextField("e.g. Pmt for services", text: $memo)
+                       TextField("e.g. Pmt for services", text: memoBinding)
                            .background(/*@START_MENU_TOKEN@*/Color.orange/*@END_MENU_TOKEN@*/)
                            
                    }
@@ -45,15 +75,17 @@ struct PaymentSend: View {
                            .interval(delay: 5.0) //Payment_E will trigger every 5 seconds
                               .found {
                                self.send2Address = $0
+                               self.checkIsOkToMakePmt()
                                self.showBarCodeScanner.toggle()
                              }
                        } else {
                            VStack(alignment: .leading) {
                                Text("Payee Wallet Address:")
                                HStack {
-                                   TextField("Pay to Address", text: $send2Address).background(/*@START_MENU_TOKEN@*/Color.orange/*@END_MENU_TOKEN@*/).font(/*@START_MENU_TOKEN@*/.caption/*@END_MENU_TOKEN@*/)
+                                   TextField("Pay to Address", text: send2AddressBinding).background(/*@START_MENU_TOKEN@*/Color.orange/*@END_MENU_TOKEN@*/).font(.subheadline).lineLimit(nil)
                                    Button(action: {
-                                       self.showBarCodeScanner.toggle()
+                                       UIApplication.shared.endEditing()
+                                       self.showBarCodeScanner = true
                                    }) {
                                        Image(systemName: "qrcode")
                                        .foregroundColor(.secondary)
@@ -65,42 +97,53 @@ struct PaymentSend: View {
                }
                VStack(alignment: .leading) {
                    Text("Pay amount (in nano ERGs):")
-                   TextField("eg. 10000000000", text: $send2Amt).keyboardType(.numberPad).background(/*@START_MENU_TOKEN@*/Color.orange/*@END_MENU_TOKEN@*/).padding(.bottom,50)
+                   TextField("eg. 10000000000", text: send2AmtBinding).keyboardType(.numberPad).background(/*@START_MENU_TOKEN@*/Color.orange/*@END_MENU_TOKEN@*/).padding(.bottom,50)
                }
                VStack {
-                   if (manager.tranzId.count > 0) {
+                   if ((self.event.tranzId ?? "").count > 0) {
                        NavigationLink(destination: TransactionDetails(ergoTransactionId:manager.tranzId,
                                                                       authKey: self.authkey,
                                                                       urlstr: self.ergoApiUrl,
                                                                       manager: self.manager)) {
                            VStack {
                              Text("Tranz id:")
-                             Text("\(manager.tranzId)")
+                             Text("\((self.event.tranzId ?? ""))")
                            }
                        }
                    }
                }
-               if (self.send2Amt.count > 0 && manager.tranzId.count==0 && self.memo.count > 0 && self.send2Address.count > 15) {
-                   Button(action: sendPayment) {
-                       HStack {
-                           Text("Make Payment")
-                               .fontWeight(.semibold)
-                               .font(.title)
-                       }
-                       .frame(minWidth: 0, maxWidth: .infinity)
-                       .padding()
-                       .foregroundColor(.blue)
-                   }
-               }
            }.navigationBarTitle("Send Payment Form", displayMode: .inline)
                .alert(isPresented: $manager.showingPaymentErrorAlert) {
-                   Alert(title: Text("Payment Send Error"), message: Text(manager.error_detail), dismissButton: .default(Text("OK")))
+                   Alert(title: Text("Payment Send Error"), message: Text(manager.error_detail), dismissButton: .default(
+                    Text("OK"),action: alertCleared
+                    ))
            }
            }.onAppear(perform: initForm)
+            .navigationViewStyle(StackNavigationViewStyle())
            .padding(.bottom, keyboard.currentHeight)
            .edgesIgnoringSafeArea(.bottom)
            .animation(.easeOut(duration: 0.16))
+           .navigationBarItems(trailing:
+            HStack {
+                  Button(action: sendPayment) {
+                    Text("Send Payment")
+                  }.disabled(!self.isOkToMakePmt)
+            }
+            )
+    
        }
+    
+    func alertCleared() {
+        self.event.tranzId = "no_tranz_id_yet"
+        self.event.sendToAddress = self.send2Address
+        self.event.memo = self.memo
+        self.event.sendToAmount = Double(self.send2Amt) ?? 0.0
+        (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
+    }
+    
+    func checkIsOkToMakePmt() {
+        isOkToMakePmt = self.send2Amt.count > 0 && manager.tranzId.count==0 && self.memo.count > 3 && self.send2Address.count > 15
+    }
     
     func updatePayment_ECallback(tranzid: String) {
             event.tranzId = tranzid
@@ -140,12 +183,15 @@ struct PaymentSend: View {
             }
             let amt: Int64? = Int64(self.send2Amt)
             if (amt != nil && self.send2Address.count > 0) {
-                self.manager.sendPaymentRequest(self.ergoApiUrl, self.authkey, self.send2Address, amt!, completionHandler: { (transid: String)  in
-                    self.event.tranzId = transid
-                    self.event.sendToAddress = self.send2Address
-                    self.event.memo = self.memo
-                    self.event.sendToAmount = Double(self.send2Amt) ?? 0.0
-                    (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
+                self.manager.sendPaymentRequest(self.ergoApiUrl, self.authkey, self.send2Address, amt!,
+                                                self.authKeyPwd,completionHandler: { (transid: String)  in
+                    DispatchQueue.main.async {
+                        self.event.tranzId = transid
+                        self.event.sendToAddress = self.send2Address
+                        self.event.memo = self.memo
+                        self.event.sendToAmount = Double(self.send2Amt) ?? 0.0
+                        (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
+                    }
                 })
             } else {
                 print("Found Nil for 'amt' to send.")

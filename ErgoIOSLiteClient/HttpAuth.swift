@@ -21,6 +21,8 @@ class HttpAuth: ObservableObject {
     @Published var error_detail = ""
     @Published var showingPaymentErrorAlert = false
     @Published var ergoTransaction = ErgoTransaction()
+    @Published var isWalletInitialized = false
+    @Published var isWalletUnlocked = false
 
     func getBal(_ urlstr: String, _ api_key: String) {
         guard let url = URL(string: urlstr+ERGO_API_ROUTES.wallet_balance_get) else { return }
@@ -37,6 +39,37 @@ class HttpAuth: ObservableObject {
                 self.walletBalance = resData.balance
             }
             print(data)
+        }.resume()
+    }
+
+    func getWalletStatus(_ urlstr: String, _ api_key: String) {
+        guard let url = URL(string: urlstr+ERGO_API_ROUTES.wallet_status_get) else { return }
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "accept")
+        request.setValue(api_key, forHTTPHeaderField: "api_key")
+        self.error_reason = ""
+        self.error_detail = ""
+        self.error_code = 0
+
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            guard let data = data else { return }
+            if let walletStatus = try? JSONDecoder().decode(WalletStatus.self, from: data) {
+                DispatchQueue.main.async {
+                    self.isWalletInitialized = walletStatus.isInitialized
+                    self.isWalletUnlocked    = walletStatus.isUnlocked
+                    print(" ** WALLET is initialized? \(self.isWalletInitialized)")
+                    print(" ** WALLET is unlocked? \(self.isWalletUnlocked)")
+                }
+            } else if let responseERROR = try? JSONDecoder().decode(ApiError.self, from: data)  {
+               print(responseERROR)
+               DispatchQueue.main.async {
+                  self.error_reason = responseERROR.reason
+                  self.error_detail = responseERROR.detail
+                  self.error_code = responseERROR.error
+               }
+            }
+//            print(data)
         }.resume()
     }
 
@@ -67,7 +100,41 @@ class HttpAuth: ObservableObject {
         }.resume()
     }
 
+    func unlockWalletPost(_ urlstr: String, _ api_key: String,_ api_key_password: String, completionHandler: @escaping(String) -> Void) {
+        guard let url = URL(string: urlstr+ERGO_API_ROUTES.wallet_unlock_post) else { return }
+        let wur = WalletUnlockRequest(pass: api_key_password)
+        let jsonData = try! JSONEncoder().encode(wur)
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.httpBody = jsonData
+        request.setValue("application/json", forHTTPHeaderField: "accept")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(api_key, forHTTPHeaderField: "api_key")
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+           guard let data = data, error == nil else {
+               print(error?.localizedDescription ?? "No data")
+               return
+           }
+           if let responseJSON = try? JSONDecoder().decode(String.self, from: data)  {
+               print(responseJSON)
+               DispatchQueue.main.async {
+                   self.tranzId = responseJSON
+                   completionHandler("OK")
+               }
+           } else if let responseERROR = try? JSONDecoder().decode(ApiError.self, from: data)  {
+              print(responseERROR)
+              DispatchQueue.main.async {
+                 self.showingPaymentErrorAlert = true
+                 self.error_reason = responseERROR.reason
+                 self.error_detail = responseERROR.detail
+                 self.error_code = responseERROR.error
+              }
+           }
+        }.resume()
+    }
+    
     func sendPaymentRequest(_ urlstr: String, _ api_key: String, _ toAddress: String, _ amt: Int64,
+                            _ api_key_password: String,
                             completionHandler: @escaping(String) -> Void) {
          guard let url = URL(string: urlstr+ERGO_API_ROUTES.wallet_send_payment_post) else { return }
         let pr = [PaymentRequest(address: toAddress,value: amt)]
@@ -100,8 +167,20 @@ class HttpAuth: ObservableObject {
                DispatchQueue.main.async {
                   self.showingPaymentErrorAlert = true
                   self.error_reason = responseERROR.reason
-                  self.error_detail = responseERROR.detail
                   self.error_code = responseERROR.error
+                  let notEnoughBoxesStr = "No enough boxes to assemble a transaction"
+                  let walletIsLockedStr = "Wallet is locked"
+                  let notEnoughBoxesResp = "Your payment is in process.  However...there is not enough transaction activity yet to provide a transaction ID at this time..."
+                  if (responseERROR.detail.contains(notEnoughBoxesStr) || responseERROR.detail.contains(walletIsLockedStr) ) {
+                    if responseERROR.detail.contains(notEnoughBoxesStr) {
+                        self.error_detail = notEnoughBoxesResp
+                    } else {
+                        self.error_detail = walletIsLockedStr
+                    }
+                    }
+                   else {
+                    self.error_detail = responseERROR.detail
+                  }
                }
             }
          }.resume()

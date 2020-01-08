@@ -23,10 +23,10 @@ struct Payments: View {
                             withAnimation { Payment_E.create(in: self.viewContext) }
                         }
                     ) {
-                        Image(systemName: "plus")
+                        Text("Create a payment")
                     }
                 )
-       }
+       }.navigationViewStyle(StackNavigationViewStyle())  
     }
 }
 
@@ -46,7 +46,10 @@ struct MasterView: View {
 //                    destination: DetailView(event: event)
                     destination: PaymentSend(event: event)
                 ) {
-                    Text("\(event.timestamp!, formatter: dateFormatter)")
+                    VStack {
+                      Text("\(event.timestamp!, formatter: dateFormatter)").font(.headline)
+                      Text("Memo: \(event.memo ?? "")")
+                    }
                 }
             }.onDelete { indices in
                 self.events.delete(at: indices, from: self.viewContext)

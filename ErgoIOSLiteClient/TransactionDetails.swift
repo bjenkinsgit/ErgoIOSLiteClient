@@ -30,9 +30,10 @@ struct TransactionDetails: View {
                     }
                 }
             } else {
-               Text("Getting tranz detail")
+               Text("Not available yet...please wait a few minutes")
             }
         }.onAppear(perform: loadTranzDetail)
+        .navigationViewStyle(StackNavigationViewStyle())  
     }
 
     func loadTranzDetail() {
