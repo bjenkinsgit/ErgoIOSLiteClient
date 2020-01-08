@@ -24,6 +24,32 @@ class HttpAuth: ObservableObject {
     @Published var isWalletInitialized = false
     @Published var isWalletUnlocked = false
 
+    func handle(_ error: Error) {
+        switch error {
+        // Matching against a group of offline-related errors:
+        case URLError.notConnectedToInternet,
+             URLError.networkConnectionLost,
+             URLError.cannotLoadFromNetwork:
+            self.isOnline = false
+            self.error_reason = "Network Error"
+            self.error_detail = error.localizedDescription
+            let urlerror = error as! URLError
+            self.error_code = urlerror.errorCode
+            self.showingPaymentErrorAlert = true
+        case URLError.appTransportSecurityRequiresSecureConnection:
+            self.isOnline = false
+            self.error_reason = "URLError"
+            self.error_detail = error.localizedDescription + "  Please change the 'Account Settings' ergo URL to use either https or to use an IP address directly."
+            self.error_code = -1022
+            self.showingPaymentErrorAlert = true
+        default:
+            self.isOnline = false
+            self.error_reason = "URLError"
+            self.error_detail = error.localizedDescription + "  Network error trying to reach the ERGO url node specified in 'Account Settings'.  Please check to make sure you a) have network connectivity and b) the ability to get to the ERGO url."
+            self.error_code = 500
+            self.showingPaymentErrorAlert = true
+        }
+    }
     func getBal(_ urlstr: String, _ api_key: String) {
         guard let url = URL(string: urlstr+ERGO_API_ROUTES.wallet_balance_get) else { return }
         var request = URLRequest(url: url)
@@ -32,13 +58,29 @@ class HttpAuth: ObservableObject {
         request.setValue(api_key, forHTTPHeaderField: "api_key")
 
         URLSession.shared.dataTask(with: request) { (data, response, error) in
-            guard let data = data else { return }
-            let resData = try! JSONDecoder().decode(BalancesSnapshot.self, from: data)
-            DispatchQueue.main.async {
-                self.isOnline = true
-                self.walletBalance = resData.balance
+            guard let data = data else {
+                let resError = error as! URLError
+                
+                DispatchQueue.main.async {
+                    self.handle(resError)
+                }
+                print(resError.localizedDescription)
+                return
             }
-            print(data)
+            if let resData = try? JSONDecoder().decode(BalancesSnapshot.self, from: data) {
+                DispatchQueue.main.async {
+                    self.isOnline = true
+                    self.walletBalance = resData.balance
+                }
+                print(data)
+            } else if let responseERROR = try? JSONDecoder().decode(ApiError.self, from: data)  {
+               print(responseERROR)
+               DispatchQueue.main.async {
+                  self.error_reason = responseERROR.reason
+                  self.error_detail = responseERROR.detail
+                  self.error_code = responseERROR.error
+               }
+            }
         }.resume()
     }
 
@@ -73,7 +115,8 @@ class HttpAuth: ObservableObject {
         }.resume()
     }
 
-    func getWalletTranzById(_ urlstr: String, _ api_key: String, _ tranzid: String, completionHandler: @escaping(ErgoTransaction) -> Void) {
+    func getWalletTranzById(_ urlstr: String, _ api_key: String, _ tranzid: String, completionHandler: @escaping(ErgoTransaction) -> Void)
+    {
         guard let url = URL(string: urlstr+ERGO_API_ROUTES.wallet_tranz_by_id_get+"?id=\(tranzid)") else { return }
         var request = URLRequest(url: url)
         request.httpMethod = "GET"

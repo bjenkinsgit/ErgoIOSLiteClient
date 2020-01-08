@@ -9,43 +9,39 @@
 import SwiftUI
 import LocalAuthentication
 
-struct Account: View {
+struct AccountSettingsView: View {
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @State var secureStoreWithGenericPwd: SecureStore!
     @State private var isUnlocked = false
     @State private var accountName = ""
-    @State private var authkey = ""
-    @State private var authKeyOrig = ""
-    @State private var authKeyPwd = ""
-    @State private var authKeyPwdOrig = ""
     @State private var showingSaveSucessAlert = false
     @State private var showSaveButton = false
     @State private var showAuthKeyField = false
     @State private var showAuthKeyPwdField = false
-    @State private var ergoApiUrl = ""
-    @State private var ergoApiUrlOrig = ""
     @State private var currLockClicked = 0 // 1 means authKey, 2 means authKeyPwd
     @ObservedObject private var keyboard = KeyboardResponder()
+    @ObservedObject var account: Account
 
     var body: some View {
         let authKeyBinding = Binding<String>(get: {
-            self.authkey
+            self.account.authkey
         }, set: {
-            self.authkey = $0
-            self.showSaveButton = (self.authkey != self.authKeyOrig ||
-                self.authKeyPwd != self.authKeyPwdOrig)
+            self.account.authkey = $0
+            self.showSaveButton = (self.account.authkey != self.account.authKeyOrig ||
+                self.account.authKeyPwd != self.account.authKeyPwdOrig)
         })
         let authKeyPwdBinding = Binding<String>(get: {
-            self.authKeyPwd
+            self.account.authKeyPwd
         }, set: {
-            self.authKeyPwd = $0
-            self.showSaveButton = (self.authkey != self.authKeyOrig ||
-                self.authKeyPwd != self.authKeyPwdOrig)
+            self.account.authKeyPwd = $0
+            self.showSaveButton = (self.account.authkey != self.account.authKeyOrig ||
+                self.account.authKeyPwd != self.account.authKeyPwdOrig)
         })
         let urlTextFieldBinding = Binding<String>(get: {
-            self.ergoApiUrl
+            self.account.ergoApiUrl
         }, set: {
-            self.ergoApiUrl = $0
-            self.showSaveButton = (self.ergoApiUrl != self.ergoApiUrlOrig)
+            self.account.ergoApiUrl = $0
+            self.showSaveButton = (self.account.ergoApiUrl != self.account.ergoApiUrlOrig)
         })
 
         return NavigationView {
@@ -104,7 +100,9 @@ struct Account: View {
                     let retval = self.saveAuthData()
                     if (retval) {
                         self.showingSaveSucessAlert.toggle()
-                    }
+                        
+                }
+                
                     
                 }) {
                     Text("SAVE CHANGES")
@@ -112,9 +110,11 @@ struct Account: View {
             } // HStack
            }
 
-        }.navigationBarTitle("ACCOUNT", displayMode: .inline)
+         }.navigationBarTitle("ACCOUNT", displayMode: .inline)
             .alert(isPresented: $showingSaveSucessAlert) {
-               Alert(title: Text("Keychain Updated"), message: Text("AUTH DATA STORED SECURELY IN KEYCHAIN!"), dismissButton: .default(Text("OK")))
+                Alert(title: Text("Keychain Updated"), message: Text("AUTH DATA STORED SECURELY IN KEYCHAIN!"), dismissButton: .default(Text("OK"), action: {
+                    self.presentationMode.wrappedValue.dismiss()
+                }))
             }
         }.onAppear(perform: initForm)
          .navigationViewStyle(StackNavigationViewStyle())  
@@ -165,12 +165,12 @@ struct Account: View {
     
     func loadAuthData() {
         do {
-            authkey = try (secureStoreWithGenericPwd.getValue(for: "authkey") ?? "")
-            authKeyOrig = authkey
-            authKeyPwd = try (secureStoreWithGenericPwd.getValue(for: "authKeyPwd") ?? "")
-            authKeyPwdOrig = authKeyPwd
-            ergoApiUrl = try (secureStoreWithGenericPwd.getValue(for: "ergoApiUrl") ?? "")
-            ergoApiUrlOrig = ergoApiUrl
+            self.account.authkey = try (secureStoreWithGenericPwd.getValue(for: "authkey") ?? "")
+            self.account.authKeyOrig = self.account.authkey
+            self.account.authKeyPwd = try (secureStoreWithGenericPwd.getValue(for: "authKeyPwd") ?? "")
+            self.account.authKeyPwdOrig = self.account.authKeyPwd
+            self.account.ergoApiUrl = try (secureStoreWithGenericPwd.getValue(for: "ergoApiUrl") ?? "")
+            self.account.ergoApiUrlOrig = self.account.ergoApiUrl
 //            showSendTo = (authkey.count>0 && authKeyPwd.count>0 && ergoApiUrl.count>0)
         } catch (let e) {
           print("EXCEPTION: Loading authkey and authKeyPwd failed with \(e.localizedDescription).")
@@ -186,9 +186,9 @@ struct Account: View {
     
     func saveAuthData()-> Bool {
       do {
-            try secureStoreWithGenericPwd.setValue(authkey, for: "authkey")
-            try secureStoreWithGenericPwd.setValue(authKeyPwd, for: "authKeyPwd")
-            try secureStoreWithGenericPwd.setValue(ergoApiUrl, for: "ergoApiUrl")
+            try secureStoreWithGenericPwd.setValue(self.account.authkey, for: "authkey")
+            try secureStoreWithGenericPwd.setValue(self.account.authKeyPwd, for: "authKeyPwd")
+            try secureStoreWithGenericPwd.setValue(self.account.ergoApiUrl, for: "ergoApiUrl")
             return true
       } catch (let e) {
         print("EXCEPTION: Saving authkey and authKeyPwd failed with \(e.localizedDescription).")
@@ -202,6 +202,6 @@ struct Account: View {
 
 struct Account_Previews: PreviewProvider {
     static var previews: some View {
-        Account()
+        AccountSettingsView(account: Account())
     }
 }
