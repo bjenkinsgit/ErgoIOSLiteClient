@@ -14,6 +14,7 @@ struct AccountSettingsView: View {
     @State var secureStoreWithGenericPwd: SecureStore!
     @State private var isUnlocked = false
     @State private var accountName = ""
+    @State private var accountNameOrig = ""
     @State private var showingSaveSucessAlert = false
     @State private var showSaveButton = false
     @State private var showAuthKeyField = false
@@ -23,6 +24,12 @@ struct AccountSettingsView: View {
     @ObservedObject var account: Account
 
     var body: some View {
+        let accountNameBinding = Binding<String>(get: {
+            self.account.accountName
+        }, set: {
+            self.account.accountName = $0
+            self.showSaveButton = (self.account.accountName != self.account.accountNameOrig)
+        })
         let authKeyBinding = Binding<String>(get: {
             self.account.authkey
         }, set: {
@@ -48,7 +55,7 @@ struct AccountSettingsView: View {
          Form {
             Section {
                   Text("Account Name:")
-                  TextField("e.g. My main ergo node", text: $accountName)
+                  TextField("e.g. My main ergo node", text: accountNameBinding)
             }
           Section {
             Text("Authorization Key:")
@@ -165,12 +172,14 @@ struct AccountSettingsView: View {
     
     func loadAuthData() {
         do {
+            self.account.accountName = try (secureStoreWithGenericPwd.getValue(for: "accountName") ?? "")
             self.account.authkey = try (secureStoreWithGenericPwd.getValue(for: "authkey") ?? "")
             self.account.authKeyOrig = self.account.authkey
             self.account.authKeyPwd = try (secureStoreWithGenericPwd.getValue(for: "authKeyPwd") ?? "")
             self.account.authKeyPwdOrig = self.account.authKeyPwd
             self.account.ergoApiUrl = try (secureStoreWithGenericPwd.getValue(for: "ergoApiUrl") ?? "")
             self.account.ergoApiUrlOrig = self.account.ergoApiUrl
+            self.account.isLoaded = true
 //            showSendTo = (authkey.count>0 && authKeyPwd.count>0 && ergoApiUrl.count>0)
         } catch (let e) {
           print("EXCEPTION: Loading authkey and authKeyPwd failed with \(e.localizedDescription).")
@@ -186,6 +195,7 @@ struct AccountSettingsView: View {
     
     func saveAuthData()-> Bool {
       do {
+            try secureStoreWithGenericPwd.setValue(self.account.accountName, for: "accountName")
             try secureStoreWithGenericPwd.setValue(self.account.authkey, for: "authkey")
             try secureStoreWithGenericPwd.setValue(self.account.authKeyPwd, for: "authKeyPwd")
             try secureStoreWithGenericPwd.setValue(self.account.ergoApiUrl, for: "ergoApiUrl")

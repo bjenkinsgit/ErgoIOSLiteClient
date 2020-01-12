@@ -11,22 +11,42 @@ import Combine
 
 final class Account : ObservableObject
  {
-  @Published var accountSettingsChanged = false
+  public var isLoaded = false
+    
+  @Published var accountSettingsChanged = false 
+
+  @Published var accountName = "" {
+        didSet {
+            if (isLoaded) {
+               accountSettingsChanged = true
+            }
+        }
+  }
+  @Published var accountNameOrig = ""
+    
   @Published var authkey = "" {
       didSet {
-          accountSettingsChanged = true
+          if (isLoaded) {
+             accountSettingsChanged = true
+          }
       }
   }
   @Published var authKeyOrig = "" 
+
   @Published var authKeyPwd = "" {
       didSet {
-          accountSettingsChanged = true
+          if (isLoaded) {
+             accountSettingsChanged = true
+          }
       }
   }
   @Published var authKeyPwdOrig = ""
+    
   @Published var ergoApiUrl = "" {
       didSet {
-          accountSettingsChanged = true
+          if (isLoaded) {
+             accountSettingsChanged = true
+          }
       }
   }
   @Published var ergoApiUrlOrig = ""
