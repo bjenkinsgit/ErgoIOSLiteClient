@@ -10,9 +10,10 @@ import SwiftUI
 import CoreData
 
 extension Payment_E {
-    static func create(in managedObjectContext: NSManagedObjectContext){
+    static func create(in managedObjectContext: NSManagedObjectContext, _ halfAuthKey: String){
         let newPayment_E = self.init(context: managedObjectContext)
         newPayment_E.timestamp = Date()
+        newPayment_E.halfAuthKey = halfAuthKey
         
         do {
             try  managedObjectContext.save()

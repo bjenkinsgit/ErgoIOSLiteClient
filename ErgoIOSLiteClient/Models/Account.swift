@@ -23,12 +23,18 @@ final class Account : ObservableObject
         }
   }
   @Published var accountNameOrig = ""
+  var halfAuthKey: String = ""
     
   @Published var authkey = "" {
       didSet {
           if (isLoaded) {
              accountSettingsChanged = true
           }
+        if (authkey.count > 32) {
+            halfAuthKey = String(authkey.dropLast(32))
+        } else {
+            halfAuthKey = authkey
+        }
       }
   }
   @Published var authKeyOrig = "" 

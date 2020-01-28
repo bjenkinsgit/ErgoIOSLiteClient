@@ -13,60 +13,35 @@ struct AccountSettingsView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @State var secureStoreWithGenericPwd: SecureStore!
     @State private var isUnlocked = false
-    @State private var accountName = ""
-    @State private var accountNameOrig = ""
     @State private var showingSaveSucessAlert = false
-    @State private var showSaveButton = false
     @State private var showAuthKeyField = false
     @State private var showAuthKeyPwdField = false
     @State private var currLockClicked = 0 // 1 means authKey, 2 means authKeyPwd
-    @ObservedObject private var keyboard = KeyboardResponder()
+//    @ObservedObject private var keyboard = KeyboardResponder()
     @ObservedObject var account: Account
+    
+    @State private var url = ""
 
     var body: some View {
-        let accountNameBinding = Binding<String>(get: {
-            self.account.accountName
-        }, set: {
-            self.account.accountName = $0
-            self.showSaveButton = (self.account.accountName != self.account.accountNameOrig)
-        })
-        let authKeyBinding = Binding<String>(get: {
-            self.account.authkey
-        }, set: {
-            self.account.authkey = $0
-            self.showSaveButton = (self.account.authkey != self.account.authKeyOrig ||
-                self.account.authKeyPwd != self.account.authKeyPwdOrig)
-        })
-        let authKeyPwdBinding = Binding<String>(get: {
-            self.account.authKeyPwd
-        }, set: {
-            self.account.authKeyPwd = $0
-            self.showSaveButton = (self.account.authkey != self.account.authKeyOrig ||
-                self.account.authKeyPwd != self.account.authKeyPwdOrig)
-        })
-        let urlTextFieldBinding = Binding<String>(get: {
-            self.account.ergoApiUrl
-        }, set: {
-            self.account.ergoApiUrl = $0
-            self.showSaveButton = (self.account.ergoApiUrl != self.account.ergoApiUrlOrig)
-        })
 
-        return NavigationView {
-         Form {
-            Section {
+    NavigationView {
+//         Form {
+        ScrollView {
+          VStack(alignment: .leading) {
                   Text("Account Name:")
-                  TextField("e.g. My main ergo node", text: accountNameBinding)
-            }
-          Section {
+                  TextField("e.g. My main ergo node", text: $account.accountName).background(/*@START_MENU_TOKEN@*/Color.orange/*@END_MENU_TOKEN@*/)
+          }
+            Divider().accentColor(Color.red)
+          VStack(alignment: .leading)  {
             Text("Authorization Key:")
             HStack {
                 Image(systemName: "lock")
                 .foregroundColor(.secondary)
                 if showAuthKeyField {
                     TextField("e.g. abcd1234...",
-                    text: authKeyBinding)
+                    text: $account.authkey).background(/*@START_MENU_TOKEN@*/Color.orange/*@END_MENU_TOKEN@*/)
                 } else {
-                   SecureField("e.g. abcd1234...", text: authKeyBinding)
+                   SecureField("e.g. abcd1234...", text: $account.authkey).background(/*@START_MENU_TOKEN@*/Color.orange/*@END_MENU_TOKEN@*/)
                 }
                 Button(action: {
                     self.currLockClicked = 1
@@ -77,16 +52,17 @@ struct AccountSettingsView: View {
                 }
             }
           }
-          Section {
+            Divider().accentColor(Color.red)
+          VStack(alignment: .leading) {
             Text("Authorization Key Password:")
             HStack {
              Image(systemName: "lock")
              .foregroundColor(.secondary)
                 if showAuthKeyPwdField {
-                    TextField("e.g. my_secret_password",
-                    text: authKeyPwdBinding)
+                    TextField("e.g. your_secret_password",
+                    text: $account.authKeyPwd).background(/*@START_MENU_TOKEN@*/Color.orange/*@END_MENU_TOKEN@*/)
                 } else {
-                  SecureField("e.g. my_secret_password", text: authKeyPwdBinding)
+                  SecureField("e.g. your_secret_password", text: $account.authKeyPwd).background(/*@START_MENU_TOKEN@*/Color.orange/*@END_MENU_TOKEN@*/)
                 }
                 Button(action: {
                     self.currLockClicked = 2
@@ -97,11 +73,13 @@ struct AccountSettingsView: View {
                 }
             }
           }
-            Section {
+            Divider().accentColor(Color.red)
+            VStack(alignment: .leading) {
                 Text("ERGO Node Url:")
-                TextField("e.g. http://your.private.vpn.ergo.node:9052", text: urlTextFieldBinding)
+                TextField("e.g. http://your.ergo.node:9052", text: $account.ergoApiUrl).background(/*@START_MENU_TOKEN@*/Color.orange/*@END_MENU_TOKEN@*/)
             }
-           if (showSaveButton) {
+            Divider().accentColor(Color.red)
+            if (self.account.isLoaded && self.account.accountSettingsChanged) {
               HStack {
               Button(action: {
                     let retval = self.saveAuthData()
@@ -117,17 +95,16 @@ struct AccountSettingsView: View {
             } // HStack
            }
 
-         }.navigationBarTitle("ACCOUNT", displayMode: .inline)
+         } // scroll view
+         .navigationBarTitle("ACCOUNT", displayMode: .inline)
             .alert(isPresented: $showingSaveSucessAlert) {
                 Alert(title: Text("Keychain Updated"), message: Text("AUTH DATA STORED SECURELY IN KEYCHAIN!"), dismissButton: .default(Text("OK"), action: {
-                    self.presentationMode.wrappedValue.dismiss()
+                    //self.presentationMode.wrappedValue.dismiss()
                 }))
             }
+//          } // form
         }.onAppear(perform: initForm)
-         .navigationViewStyle(StackNavigationViewStyle())  
-        .padding(.bottom, keyboard.currentHeight)
-        .edgesIgnoringSafeArea(.bottom)
-        .animation(.easeOut(duration: 0.16))// Nav view
+        .navigationViewStyle(StackNavigationViewStyle())
     }
     
     func authenticate() {
@@ -180,6 +157,7 @@ struct AccountSettingsView: View {
             self.account.ergoApiUrl = try (secureStoreWithGenericPwd.getValue(for: "ergoApiUrl") ?? "")
             self.account.ergoApiUrlOrig = self.account.ergoApiUrl
             self.account.isLoaded = true
+            self.account.accountSettingsChanged = false
 //            showSendTo = (authkey.count>0 && authKeyPwd.count>0 && ergoApiUrl.count>0)
         } catch (let e) {
           print("EXCEPTION: Loading authkey and authKeyPwd failed with \(e.localizedDescription).")

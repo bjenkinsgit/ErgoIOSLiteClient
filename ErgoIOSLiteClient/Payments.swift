@@ -7,43 +7,63 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct Payments: View {
-    @Environment(\.managedObjectContext)
-    var viewContext
-    
+    @Environment(\.managedObjectContext) var viewContext
+    @ObservedObject var account: Account
+
     var body: some View {
         NavigationView {
-            MasterView()
+            MasterView(halfAuthKey: account.halfAuthKey)
                 .navigationBarTitle("Payments",displayMode: .inline)
                 .navigationBarItems(
                     leading: EditButton(),
                     trailing: Button(
                         action: {
-                            withAnimation { Payment_E.create(in: self.viewContext) }
+                            withAnimation {
+                                print("--> PLUS symbol touched.")
+                                Payment_E.create(in: self.viewContext, self.account.halfAuthKey)
+                                
+                            }
                         }
                     ) {
-                        Text("Create a payment")
+                        Image(systemName: "plus")
                     }
                 )
-       }.navigationViewStyle(StackNavigationViewStyle())  
+        }.onAppear {
+            initForm(self.viewContext)
+        }.navigationViewStyle(StackNavigationViewStyle())
     }
 }
 
+func initForm(_ viewContext: NSManagedObjectContext) {
+    viewContext.mergePolicy = NSMergePolicy(merge: NSMergePolicyType.mergeByPropertyObjectTrumpMergePolicyType)
+}
+
 struct MasterView: View {
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Payment_E.timestamp, ascending: true)],
-        animation: .default)
-    var events: FetchedResults<Payment_E>
+//    @FetchRequest(
+//        sortDescriptors: [NSSortDescriptor(keyPath: \Payment_E.timestamp, ascending: true)],
+//        animation: .default)
+//    var events: FetchedResults<Payment_E>
 
-    @Environment(\.managedObjectContext)
-    var viewContext
+    var fetchRequest: FetchRequest<Payment_E>
+    var events: FetchedResults<Payment_E> { fetchRequest.wrappedValue }
 
+    @Environment(\.managedObjectContext) var viewContext
+    
+    init(halfAuthKey: String) {
+        fetchRequest = FetchRequest<Payment_E> (entity:
+            Payment_E.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Payment_E.timestamp, ascending: true)],
+            predicate: NSPredicate(format: "halfAuthKey == %@", halfAuthKey),
+            animation: .default
+        )
+    }
+    
     var body: some View {
         List {
-            ForEach(events, id: \.self) { event in
+            ForEach(self.events, id: \.self) { event in
                 NavigationLink(
-//                    destination: DetailView(event: event)
                     destination: PaymentSend(event: event)
                 ) {
                     VStack {
@@ -61,6 +81,6 @@ struct MasterView: View {
 struct Payments_Previews: PreviewProvider {
     static var previews: some View {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        return Payments().environment(\.managedObjectContext, context)
+        return Payments(account: Account()).environment(\.managedObjectContext, context)
     }
 }

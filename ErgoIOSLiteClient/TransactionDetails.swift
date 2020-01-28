@@ -15,6 +15,7 @@ struct TransactionDetails: View {
     @State var manager = HttpAuth()
     @State private var ergTranzRealized = false
     @State private var ergoTransaction = ErgoTransaction()
+    @State private var showingSheet = false
     
     var body: some View {
         NavigationView {
@@ -22,6 +23,18 @@ struct TransactionDetails: View {
                 VStack {
                     Text("Tranz id:")
                     Text(ergoTransactionId)
+                        .foregroundColor(.yellow)
+                        .contextMenu {
+                            Button(action: {
+                                let pasteboard = UIPasteboard.general
+                                pasteboard.string = self.ergoTransactionId                                
+                            }) {
+                                Text("Copy to clipboard")
+                                Image(systemName: "doc.on.clipboard")
+                            }
+                        }
+                        
+                    
                     Section {
                         List(self.ergoTransaction.inputs, id: \.boxId) { di in
                             Text("INPUT BOX ID:")

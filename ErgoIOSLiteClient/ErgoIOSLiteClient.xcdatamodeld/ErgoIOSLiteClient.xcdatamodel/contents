@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19C57" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
     <entity name="Payment_E" representedClassName=".Payment_E" codeGenerationType="class">
+        <attribute name="halfAuthKey" optional="YES" attributeType="String"/>
         <attribute name="memo" optional="YES" attributeType="String"/>
         <attribute name="sendToAddress" optional="YES" attributeType="String"/>
         <attribute name="sendToAmount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -9,6 +10,6 @@
         <userInfo/>
     </entity>
     <elements>
-        <element name="Payment_E" positionX="261" positionY="189" width="128" height="118"/>
+        <element name="Payment_E" positionX="261" positionY="189" width="128" height="133"/>
     </elements>
 </model>

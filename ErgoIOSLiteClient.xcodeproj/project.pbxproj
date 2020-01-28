@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E70BDE5223D8F06A00100CC5 /* Error_UnlockWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70BDE5123D8F06A00100CC5 /* Error_UnlockWallet.swift */; };
+		E70BDE5423DB945D00100CC5 /* NodeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70BDE5323DB945D00100CC5 /* NodeInfo.swift */; };
+		E70BDE5623DB9A5800100CC5 /* Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70BDE5523DB9A5800100CC5 /* Parameters.swift */; };
+		E70BDE5823DB9B5300100CC5 /* NodeInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70BDE5723DB9B5300100CC5 /* NodeInfoView.swift */; };
+		E750821823DF50F200FD74C9 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E750821723DF50F200FD74C9 /* CircularProgressView.swift */; };
+		E750821A23DF635200FD74C9 /* CircularActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E750821923DF635200FD74C9 /* CircularActivityIndicator.swift */; };
 		E773E39023C24E86002F9D73 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E773E38F23C24E86002F9D73 /* Media.xcassets */; };
 		E7ACEE2523BCF38D00ABB500 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE2423BCF38D00ABB500 /* AppDelegate.swift */; };
 		E7ACEE2823BCF38D00ABB500 /* ErgoIOSLiteClient.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE2623BCF38D00ABB500 /* ErgoIOSLiteClient.xcdatamodeld */; };
@@ -51,8 +57,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E70BDE5123D8F06A00100CC5 /* Error_UnlockWallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error_UnlockWallet.swift; sourceTree = "<group>"; };
+		E70BDE5323DB945D00100CC5 /* NodeInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeInfo.swift; sourceTree = "<group>"; };
+		E70BDE5523DB9A5800100CC5 /* Parameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parameters.swift; sourceTree = "<group>"; };
+		E70BDE5723DB9B5300100CC5 /* NodeInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeInfoView.swift; sourceTree = "<group>"; };
+		E750821723DF50F200FD74C9 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
+		E750821923DF635200FD74C9 /* CircularActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularActivityIndicator.swift; sourceTree = "<group>"; };
 		E773E38F23C24E86002F9D73 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
-		E7ACEE2123BCF38D00ABB500 /* ErgoIOSLiteClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ErgoIOSLiteClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E7ACEE2123BCF38D00ABB500 /* Ergo Lite Client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ergo Lite Client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7ACEE2423BCF38D00ABB500 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E7ACEE2723BCF38D00ABB500 /* ErgoIOSLiteClient.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ErgoIOSLiteClient.xcdatamodel; sourceTree = "<group>"; };
 		E7ACEE2923BCF38D00ABB500 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -122,7 +134,7 @@
 		E7ACEE2223BCF38D00ABB500 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E7ACEE2123BCF38D00ABB500 /* ErgoIOSLiteClient.app */,
+				E7ACEE2123BCF38D00ABB500 /* Ergo Lite Client.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -156,6 +168,9 @@
 				E7ACEE7223BD655900ABB500 /* AccountSettingsView.swift */,
 				E7ACEE8623BD89A900ABB500 /* TransactionDetails.swift */,
 				E7ACEE8823BE7D1400ABB500 /* KeyboardResponder.swift */,
+				E70BDE5723DB9B5300100CC5 /* NodeInfoView.swift */,
+				E750821723DF50F200FD74C9 /* CircularProgressView.swift */,
+				E750821923DF635200FD74C9 /* CircularActivityIndicator.swift */,
 			);
 			path = ErgoIOSLiteClient;
 			sourceTree = "<group>";
@@ -197,6 +212,9 @@
 				E7ACEE8223BD876E00ABB500 /* ErgoTree.swift */,
 				E7ACEE8423BD879A00ABB500 /* SpendingProofBytes.swift */,
 				E7B2B1B123C2DD5B0045ABB7 /* WalletAPI.swift */,
+				E70BDE5123D8F06A00100CC5 /* Error_UnlockWallet.swift */,
+				E70BDE5323DB945D00100CC5 /* NodeInfo.swift */,
+				E70BDE5523DB9A5800100CC5 /* Parameters.swift */,
 			);
 			path = SwaggerModels;
 			sourceTree = "<group>";
@@ -228,7 +246,7 @@
 			packageProductDependencies = (
 			);
 			productName = ErgoIOSLiteClient;
-			productReference = E7ACEE2123BCF38D00ABB500 /* ErgoIOSLiteClient.app */;
+			productReference = E7ACEE2123BCF38D00ABB500 /* Ergo Lite Client.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -294,21 +312,26 @@
 				E7ACEE7B23BD86AC00ABB500 /* ErgoTransactionDataInput.swift in Sources */,
 				E7B2B1B523C666820045ABB7 /* Account.swift in Sources */,
 				E7ACEE7F23BD872300ABB500 /* TransactionBoxId.swift in Sources */,
+				E750821823DF50F200FD74C9 /* CircularProgressView.swift in Sources */,
 				E7ACEE8123BD874000ABB500 /* SpendingProof.swift in Sources */,
 				E7ACEE5923BD21C800ABB500 /* SValue.swift in Sources */,
 				E7ACEE6F23BD43A300ABB500 /* CarBode2.swift in Sources */,
 				E7ACEE7923BD867500ABB500 /* ErgoTransactionInput.swift in Sources */,
 				E7ACEE5123BD213300ABB500 /* Asset.swift in Sources */,
+				E70BDE5623DB9A5800100CC5 /* Parameters.swift in Sources */,
+				E70BDE5423DB945D00100CC5 /* NodeInfo.swift in Sources */,
 				E7ACEE2E23BCF38D00ABB500 /* ContentView.swift in Sources */,
 				E7ACEE7523BD851700ABB500 /* Transactions.swift in Sources */,
 				E7ACEE2523BCF38D00ABB500 /* AppDelegate.swift in Sources */,
 				E7ACEE2823BCF38D00ABB500 /* ErgoIOSLiteClient.xcdatamodeld in Sources */,
 				E7ACEE5B23BD21E000ABB500 /* ApiError.swift in Sources */,
+				E750821A23DF635200FD74C9 /* CircularActivityIndicator.swift in Sources */,
 				E7ACEE6823BD247600ABB500 /* SecureStoreError.swift in Sources */,
 				E7ACEE4F23BD211900ABB500 /* ErgoAddress.swift in Sources */,
 				E7ACEE7D23BD86E300ABB500 /* ErgoTransactionOutput.swift in Sources */,
 				E7ACEE5723BD21AE00ABB500 /* PaymentRequest.swift in Sources */,
 				E7ACEE8923BE7D1400ABB500 /* KeyboardResponder.swift in Sources */,
+				E70BDE5223D8F06A00100CC5 /* Error_UnlockWallet.swift in Sources */,
 				E7ACEE6423BD244400ABB500 /* InternetProtocol.swift in Sources */,
 				E7ACEE2A23BCF38D00ABB500 /* SceneDelegate.swift in Sources */,
 				E7B2B1B223C2DD5B0045ABB7 /* WalletAPI.swift in Sources */,
@@ -320,6 +343,7 @@
 				E7ACEE4A23BD209500ABB500 /* HttpAuth.swift in Sources */,
 				E7ACEE8723BD89A900ABB500 /* TransactionDetails.swift in Sources */,
 				E7ACEE7123BD63A100ABB500 /* Payments.swift in Sources */,
+				E70BDE5823DB9B5300100CC5 /* NodeInfoView.swift in Sources */,
 				E7ACEE8523BD879A00ABB500 /* SpendingProofBytes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -469,8 +493,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.amc.ErgoIOSLiteClient;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.amc.ergoliteclient;
+				PRODUCT_NAME = "Ergo Lite Client";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -491,8 +515,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.amc.ErgoIOSLiteClient;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.amc.ergoliteclient;
+				PRODUCT_NAME = "Ergo Lite Client";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
