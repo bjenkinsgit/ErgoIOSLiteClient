@@ -58,13 +58,12 @@ class HttpAuth: ObservableObject {
         request.setValue(api_key, forHTTPHeaderField: "api_key")
 
         URLSession.shared.dataTask(with: request) { (data, response, error) in
-            guard let data = data else {
+            guard let data = data, error == nil else {
                 let resError = error as! URLError
                 
                 DispatchQueue.main.async {
                     self.handle(resError)
                 }
-                print(resError.localizedDescription)
                 return
             }
             if let resData = try? JSONDecoder().decode(BalancesSnapshot.self, from: data) {
@@ -72,7 +71,6 @@ class HttpAuth: ObservableObject {
                     self.isOnline = true
                     self.walletBalance = resData.balance
                 }
-                print(data)
             } else if let responseERROR = try? JSONDecoder().decode(ApiError.self, from: data)  {
                print(responseERROR)
                DispatchQueue.main.async {
@@ -95,13 +93,18 @@ class HttpAuth: ObservableObject {
         self.error_code = 0
 
         URLSession.shared.dataTask(with: request) { (data, response, error) in
-            guard let data = data else { return }
+            guard let data = data, error == nil else {
+                let resError = error as! URLError
+                
+                DispatchQueue.main.async {
+                    self.handle(resError)
+                }
+                return
+            }
             if let walletStatus = try? JSONDecoder().decode(WalletStatus.self, from: data) {
                 DispatchQueue.main.async {
                     self.isWalletInitialized = walletStatus.isInitialized
                     self.isWalletUnlocked    = walletStatus.isUnlocked
-                    print(" ** WALLET is initialized? \(self.isWalletInitialized)")
-                    print(" ** WALLET is unlocked? \(self.isWalletUnlocked)")
                 }
             } else if let responseERROR = try? JSONDecoder().decode(ApiError.self, from: data)  {
                print(responseERROR)
@@ -115,6 +118,45 @@ class HttpAuth: ObservableObject {
         }.resume()
     }
 
+    func getInfo(_ urlstr: String, completionHandler: @escaping(NodeInfo) -> Void)
+    {
+        guard let url = URL(string: urlstr+ERGO_API_ROUTES.info_get) else { return }
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "accept")
+        self.error_reason = ""
+        self.error_detail = ""
+        self.error_code = 0
+
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            guard let data = data, error == nil else {
+                let resError = error as! URLError
+                
+                DispatchQueue.main.async {
+                    self.handle(resError)
+                }
+                return
+            }
+            if let resData = try? JSONDecoder().decode(NodeInfo.self, from: data) {
+                DispatchQueue.main.async {
+                    self.isOnline = true
+                    completionHandler(resData)
+                }
+            } else
+                if let responseERROR = try? JSONDecoder().decode(ApiError.self, from: data)  {
+               print(responseERROR)
+               DispatchQueue.main.async {
+                  self.error_reason = responseERROR.reason
+                  self.error_detail = responseERROR.detail
+                  self.error_code = responseERROR.error
+               }
+                } else {
+                    print("Woah, don't know what happened in the getInfo() method...")
+                    print(data)
+                }
+        }.resume()
+    }
+
     func getWalletTranzById(_ urlstr: String, _ api_key: String, _ tranzid: String, completionHandler: @escaping(ErgoTransaction) -> Void)
     {
         guard let url = URL(string: urlstr+ERGO_API_ROUTES.wallet_tranz_by_id_get+"?id=\(tranzid)") else { return }
@@ -124,12 +166,19 @@ class HttpAuth: ObservableObject {
         request.setValue(api_key, forHTTPHeaderField: "api_key")
 
         URLSession.shared.dataTask(with: request) { (data, response, error) in
-            guard let data = data else { return }
+            guard let data = data, error == nil else {
+                let resError = error as! URLError
+                
+                DispatchQueue.main.async {
+                    self.handle(resError)
+                }
+                return
+            }
  //           let resData = try! JSONDecoder().decode(String.self, from: data)
             if let resData = try? JSONDecoder().decode(ErgoTransaction.self, from: data) {
                 DispatchQueue.main.async {
                     completionHandler(resData)
-                    print(resData)
+ //                   print(resData)
                 }
             } else if let responseERROR = try? JSONDecoder().decode(ApiError.self, from: data)  {
                print(responseERROR)
@@ -155,11 +204,15 @@ class HttpAuth: ObservableObject {
         request.setValue(api_key, forHTTPHeaderField: "api_key")
         URLSession.shared.dataTask(with: request) { (data, response, error) in
            guard let data = data, error == nil else {
-               print(error?.localizedDescription ?? "No data")
+               let resError = error as! URLError
+               
+               DispatchQueue.main.async {
+                   self.handle(resError)
+               }
                return
            }
            if let responseJSON = try? JSONDecoder().decode(String.self, from: data)  {
-               print(responseJSON)
+               print("Wallet unlock is: "+responseJSON)
                DispatchQueue.main.async {
                    self.tranzId = responseJSON
                    completionHandler("OK")
@@ -169,7 +222,7 @@ class HttpAuth: ObservableObject {
               DispatchQueue.main.async {
                  self.showingPaymentErrorAlert = true
                  self.error_reason = responseERROR.reason
-                 self.error_detail = responseERROR.detail
+                self.error_detail = responseERROR.detail.contains("Tag mismatch") ? "Bad auth key password--check Account Settingss" : responseERROR.detail
                  self.error_code = responseERROR.error
               }
            }
@@ -196,7 +249,11 @@ class HttpAuth: ObservableObject {
 
          URLSession.shared.dataTask(with: request) { (data, response, error) in
             guard let data = data, error == nil else {
-                print(error?.localizedDescription ?? "No data")
+                let resError = error as! URLError
+                
+                DispatchQueue.main.async {
+                    self.handle(resError)
+                }
                 return
             }
             if let responseJSON = try? JSONDecoder().decode(String.self, from: data)  {
