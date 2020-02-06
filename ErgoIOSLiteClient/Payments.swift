@@ -11,11 +11,11 @@ import CoreData
 
 struct Payments: View {
     @Environment(\.managedObjectContext) var viewContext
-    @ObservedObject var account: Account
+    @EnvironmentObject var settings: UserSettings
 
     var body: some View {
         NavigationView {
-            MasterView(halfAuthKey: account.halfAuthKey)
+            MasterView(halfAuthKey: settings.account.halfAuthKey)
                 .navigationBarTitle("Payments",displayMode: .inline)
                 .navigationBarItems(
                     leading: EditButton(),
@@ -23,7 +23,7 @@ struct Payments: View {
                         action: {
                             withAnimation {
                                 print("--> PLUS symbol touched.")
-                                Payment_E.create(in: self.viewContext, self.account.halfAuthKey)
+                                Payment_E.create(in: self.viewContext, self.settings.account.halfAuthKey)
                                 
                             }
                         }
@@ -68,7 +68,8 @@ struct MasterView: View {
                 ) {
                     VStack {
                       Text("\(event.timestamp!, formatter: dateFormatter)").font(.headline)
-                      Text("Memo: \(event.memo ?? "")")
+                        Text("Memo: \(event.memo ?? "")").font(.subheadline)
+//                        Text("Memo: \(event.tranzId ?? "")").font(.subheadline)
                     }
                 }
             }.onDelete { indices in
@@ -81,6 +82,6 @@ struct MasterView: View {
 struct Payments_Previews: PreviewProvider {
     static var previews: some View {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        return Payments(account: Account()).environment(\.managedObjectContext, context)
+        return Payments().environment(\.managedObjectContext, context)
     }
 }

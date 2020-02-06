@@ -15,44 +15,30 @@ final class Account : ObservableObject
     
   @Published var accountSettingsChanged = false 
 
-  @Published var accountName = "" {
-        didSet {
-            if (isLoaded) {
-               accountSettingsChanged = true
-            }
-        }
-  }
-  @Published var accountNameOrig = ""
   var halfAuthKey: String = ""
     
   @Published var authkey = "" {
       didSet {
-          if (isLoaded) {
-             accountSettingsChanged = true
-          }
         if (authkey.count > 32) {
             halfAuthKey = String(authkey.dropLast(32))
         } else {
             halfAuthKey = authkey
         }
+      accountSettingsChanged = accountSettingsChanged || (self.authkey != "" && self.ergoApiUrl != "" && self.authKeyPwd != "")
       }
   }
   @Published var authKeyOrig = "" 
 
   @Published var authKeyPwd = "" {
       didSet {
-          if (isLoaded) {
-             accountSettingsChanged = true
-          }
+        accountSettingsChanged = accountSettingsChanged || (self.authkey != "" && self.halfAuthKey != "" && self.ergoApiUrl != "")
       }
   }
   @Published var authKeyPwdOrig = ""
     
   @Published var ergoApiUrl = "" {
       didSet {
-          if (isLoaded) {
-             accountSettingsChanged = true
-          }
+        accountSettingsChanged = accountSettingsChanged || (self.authkey != "" && self.halfAuthKey != "" && self.authKeyPwd != "")
       }
   }
   @Published var ergoApiUrlOrig = ""
