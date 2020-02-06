@@ -11,6 +11,10 @@ import LocalAuthentication
 
 struct AccountSettingsView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @Environment(\.managedObjectContext) var moc
+    @ObservedObject var account_E: Account_E
+//    @State private var accountName = ""
+    @State private var isAccountNameChanged = false
     @State var secureStoreWithGenericPwd: SecureStore!
     @State private var isUnlocked = false
     @State private var showingSaveSucessAlert = false
@@ -19,17 +23,24 @@ struct AccountSettingsView: View {
     @State private var currLockClicked = 0 // 1 means authKey, 2 means authKeyPwd
 //    @ObservedObject private var keyboard = KeyboardResponder()
     @ObservedObject var account: Account
-    
+
     @State private var url = ""
 
     var body: some View {
+        
+    let nameBinding = Binding<String>(get: {
+        self.account_E.name ?? ""
+    }, set: {
+        self.account_E.name = $0
+        self.setIsAccountNameChangedToTrue()
+    })
 
-    NavigationView {
+    return NavigationView {
 //         Form {
         ScrollView {
           VStack(alignment: .leading) {
-                  Text("Account Name:")
-                  TextField("e.g. My main ergo node", text: $account.accountName).background(/*@START_MENU_TOKEN@*/Color.orange/*@END_MENU_TOKEN@*/)
+              Text("Account Name:")
+              TextField("e.g. My main ergo node", text: nameBinding).background(/*@START_MENU_TOKEN@*/Color.orange/*@END_MENU_TOKEN@*/)
           }
             Divider().accentColor(Color.red)
           VStack(alignment: .leading)  {
@@ -79,32 +90,26 @@ struct AccountSettingsView: View {
                 TextField("e.g. http://your.ergo.node:9052", text: $account.ergoApiUrl).background(/*@START_MENU_TOKEN@*/Color.orange/*@END_MENU_TOKEN@*/)
             }
             Divider().accentColor(Color.red)
-            if (self.account.isLoaded && self.account.accountSettingsChanged) {
-              HStack {
-              Button(action: {
-                    let retval = self.saveAuthData()
-                    if (retval) {
-                        self.showingSaveSucessAlert.toggle()
-                        
-                }
-                
-                    
-                }) {
+              Button(action: saveAuthData) {
                     Text("SAVE CHANGES")
-                }
-            } // HStack
-           }
+              }.disabled(!self.account.accountSettingsChanged && !self.isAccountNameChanged) // HStack
+           
 
          } // scroll view
          .navigationBarTitle("ACCOUNT", displayMode: .inline)
             .alert(isPresented: $showingSaveSucessAlert) {
                 Alert(title: Text("Keychain Updated"), message: Text("AUTH DATA STORED SECURELY IN KEYCHAIN!"), dismissButton: .default(Text("OK"), action: {
-                    //self.presentationMode.wrappedValue.dismiss()
+                    self.presentationMode.wrappedValue.dismiss()
                 }))
             }
 //          } // form
         }.onAppear(perform: initForm)
         .navigationViewStyle(StackNavigationViewStyle())
+    }
+    
+    
+    func setIsAccountNameChangedToTrue() {
+        self.isAccountNameChanged = true
     }
     
     func authenticate() {
@@ -148,8 +153,11 @@ struct AccountSettingsView: View {
      }
     
     func loadAuthData() {
+        if (self.account_E.name == .none) {
+            return
+        }
         do {
-            self.account.accountName = try (secureStoreWithGenericPwd.getValue(for: "accountName") ?? "")
+           // self.accountName = self.account_E.name ?? ""
             self.account.authkey = try (secureStoreWithGenericPwd.getValue(for: "authkey") ?? "")
             self.account.authKeyOrig = self.account.authkey
             self.account.authKeyPwd = try (secureStoreWithGenericPwd.getValue(for: "authKeyPwd") ?? "")
@@ -164,23 +172,37 @@ struct AccountSettingsView: View {
         }
     }
 
+    
     func initForm() {
-         let genericPwdQueryable = GenericPasswordQueryable(service: "56F7835N8P.com.amc.ergo.client1")
-         secureStoreWithGenericPwd = SecureStore(secureStoreQueryable: genericPwdQueryable)
+        guard let accountstr = self.account_E.id else { return }
+        let assocdomain = "56F7835N8P.com.amc.ergo.client1.\(accountstr)"
+        let genericPwdQueryable = GenericPasswordQueryable(service: assocdomain)
+        secureStoreWithGenericPwd = SecureStore(secureStoreQueryable: genericPwdQueryable)
         self.loadAuthData()
      }
 
     
-    func saveAuthData()-> Bool {
-      do {
-            try secureStoreWithGenericPwd.setValue(self.account.accountName, for: "accountName")
+    func saveAuthData() {
+        do {
+            if (isAccountNameChanged) {
+//                (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
+                try moc.save()
+//                try account_E.managedObjectContext?.save()
+                return
+            }
+            if (!self.account.isLoaded) {
+               // self.account_E.name = $accountName.wrappedValue
+                guard let accountstr = self.account_E.id else { return }
+                let assocdomain = "56F7835N8P.com.amc.ergo.client1.\(accountstr)"
+                let genericPwdQueryable = GenericPasswordQueryable(service: assocdomain)
+                secureStoreWithGenericPwd = SecureStore(secureStoreQueryable: genericPwdQueryable)
+            }
             try secureStoreWithGenericPwd.setValue(self.account.authkey, for: "authkey")
             try secureStoreWithGenericPwd.setValue(self.account.authKeyPwd, for: "authKeyPwd")
             try secureStoreWithGenericPwd.setValue(self.account.ergoApiUrl, for: "ergoApiUrl")
-            return true
+            self.showingSaveSucessAlert.toggle()
       } catch (let e) {
         print("EXCEPTION: Saving authkey and authKeyPwd failed with \(e.localizedDescription).")
-        return false
       }
     }
 
@@ -190,6 +212,6 @@ struct AccountSettingsView: View {
 
 struct Account_Previews: PreviewProvider {
     static var previews: some View {
-        AccountSettingsView(account: Account())
+        AccountSettingsView(account_E: Account_E(), account: Account())
     }
 }

@@ -13,6 +13,9 @@
 		E70BDE5823DB9B5300100CC5 /* NodeInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70BDE5723DB9B5300100CC5 /* NodeInfoView.swift */; };
 		E750821823DF50F200FD74C9 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E750821723DF50F200FD74C9 /* CircularProgressView.swift */; };
 		E750821A23DF635200FD74C9 /* CircularActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E750821923DF635200FD74C9 /* CircularActivityIndicator.swift */; };
+		E750821C23E0CAF300FD74C9 /* Accounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = E750821B23E0CAF300FD74C9 /* Accounts.swift */; };
+		E750821E23E0D01B00FD74C9 /* Account_E.swift in Sources */ = {isa = PBXBuildFile; fileRef = E750821D23E0D01B00FD74C9 /* Account_E.swift */; };
+		E750822023E20B9E00FD74C9 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E750821F23E20B9E00FD74C9 /* UserSettings.swift */; };
 		E773E39023C24E86002F9D73 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E773E38F23C24E86002F9D73 /* Media.xcassets */; };
 		E7ACEE2523BCF38D00ABB500 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE2423BCF38D00ABB500 /* AppDelegate.swift */; };
 		E7ACEE2823BCF38D00ABB500 /* ErgoIOSLiteClient.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE2623BCF38D00ABB500 /* ErgoIOSLiteClient.xcdatamodeld */; };
@@ -63,6 +66,9 @@
 		E70BDE5723DB9B5300100CC5 /* NodeInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeInfoView.swift; sourceTree = "<group>"; };
 		E750821723DF50F200FD74C9 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		E750821923DF635200FD74C9 /* CircularActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularActivityIndicator.swift; sourceTree = "<group>"; };
+		E750821B23E0CAF300FD74C9 /* Accounts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accounts.swift; sourceTree = "<group>"; };
+		E750821D23E0D01B00FD74C9 /* Account_E.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account_E.swift; sourceTree = "<group>"; };
+		E750821F23E20B9E00FD74C9 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		E773E38F23C24E86002F9D73 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		E7ACEE2123BCF38D00ABB500 /* Ergo Lite Client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ergo Lite Client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7ACEE2423BCF38D00ABB500 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -149,6 +155,7 @@
 				E7ACEE2423BCF38D00ABB500 /* AppDelegate.swift */,
 				E7ACEE2923BCF38D00ABB500 /* SceneDelegate.swift */,
 				E7ACEE2B23BCF38D00ABB500 /* Payment_E.swift */,
+				E750821D23E0D01B00FD74C9 /* Account_E.swift */,
 				E7ACEE2D23BCF38D00ABB500 /* ContentView.swift */,
 				E7ACEE3423BCF39100ABB500 /* LaunchScreen.storyboard */,
 				E7ACEE3723BCF39100ABB500 /* Info.plist */,
@@ -171,6 +178,8 @@
 				E70BDE5723DB9B5300100CC5 /* NodeInfoView.swift */,
 				E750821723DF50F200FD74C9 /* CircularProgressView.swift */,
 				E750821923DF635200FD74C9 /* CircularActivityIndicator.swift */,
+				E750821B23E0CAF300FD74C9 /* Accounts.swift */,
+				E750821F23E20B9E00FD74C9 /* UserSettings.swift */,
 			);
 			path = ErgoIOSLiteClient;
 			sourceTree = "<group>";
@@ -315,11 +324,14 @@
 				E750821823DF50F200FD74C9 /* CircularProgressView.swift in Sources */,
 				E7ACEE8123BD874000ABB500 /* SpendingProof.swift in Sources */,
 				E7ACEE5923BD21C800ABB500 /* SValue.swift in Sources */,
+				E750821C23E0CAF300FD74C9 /* Accounts.swift in Sources */,
 				E7ACEE6F23BD43A300ABB500 /* CarBode2.swift in Sources */,
+				E750822023E20B9E00FD74C9 /* UserSettings.swift in Sources */,
 				E7ACEE7923BD867500ABB500 /* ErgoTransactionInput.swift in Sources */,
 				E7ACEE5123BD213300ABB500 /* Asset.swift in Sources */,
 				E70BDE5623DB9A5800100CC5 /* Parameters.swift in Sources */,
 				E70BDE5423DB945D00100CC5 /* NodeInfo.swift in Sources */,
+				E750821E23E0D01B00FD74C9 /* Account_E.swift in Sources */,
 				E7ACEE2E23BCF38D00ABB500 /* ContentView.swift in Sources */,
 				E7ACEE7523BD851700ABB500 /* Transactions.swift in Sources */,
 				E7ACEE2523BCF38D00ABB500 /* AppDelegate.swift in Sources */,

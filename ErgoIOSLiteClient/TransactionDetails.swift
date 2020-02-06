@@ -9,14 +9,14 @@
 import SwiftUI
 
 struct TransactionDetails: View {
+    @State var payeeAddress = ""
     @State var ergoTransactionId = ""
-    @State var authKey = ""
-    @State var urlstr = ""
     @State var manager = HttpAuth()
     @State private var ergTranzRealized = false
     @State private var ergoTransaction = ErgoTransaction()
     @State private var showingSheet = false
-    
+    @EnvironmentObject var settings: UserSettings
+
     var body: some View {
         NavigationView {
             if ergTranzRealized {
@@ -36,9 +36,24 @@ struct TransactionDetails: View {
                         
                     
                     Section {
-                        List(self.ergoTransaction.inputs, id: \.boxId) { di in
-                            Text("INPUT BOX ID:")
-                            Text(di.boxId)
+                        VStack {
+                            Text("Confirmations: \(self.ergoTransaction.numConfirmations ?? 0)")
+//                            List(self.ergoTransaction.inputs, id: \.boxId) { di in
+//                                Text("INPUT BOX ID:")
+//                                Text(di.boxId)
+//                            }
+                            List(self.ergoTransaction.outputs, id: \.value) { di in
+                                if (di.address.count == 52) {
+                                    if (di.address == self.payeeAddress) {
+                                        Text("Payee Amount:     ")
+                                    } else {
+                                        Text("Coins Returned:")
+                                    }
+                                } else {
+                                        Text("Output Tx Fee:    ")
+                                }
+                                Text(String(Double(di.value) / Double(1000000000)))
+                            }
                         }
                     }
                 }
@@ -50,7 +65,7 @@ struct TransactionDetails: View {
     }
 
     func loadTranzDetail() {
-        self.manager.getWalletTranzById(urlstr, authKey, ergoTransactionId,completionHandler: { (ergtranz: ErgoTransaction)  in
+        self.manager.getWalletTranzById(settings.account.ergoApiUrl, settings.account.authkey, ergoTransactionId,completionHandler: { (ergtranz: ErgoTransaction)  in
             self.ergoTransaction = ergtranz
             self.ergTranzRealized.toggle()
             })
