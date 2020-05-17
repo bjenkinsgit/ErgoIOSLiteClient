@@ -32,6 +32,18 @@ struct TransactionDetails: View {
                                 Text("Copy to clipboard")
                                 Image(systemName: "doc.on.clipboard")
                             }
+                            Button(action: {
+                                if let url = URL(string: "https://explorer.ergoplatform.com/en/transactions/\(self.ergoTransactionId)") {
+                                    UIApplication.shared.open(url)
+                                }
+                            }) {
+                                if (self.ergoTransactionId.starts(with: "3")) {
+                                   Text("View Transaction at Testnet")
+                                } else {
+                                   Text("View Transaction at Mainnet")
+                                }
+                                Image(systemName: "safari")
+                            }
                         }
                         
                     
@@ -43,14 +55,14 @@ struct TransactionDetails: View {
 //                                Text(di.boxId)
 //                            }
                             List(self.ergoTransaction.outputs, id: \.value) { di in
-                                if (di.address.count == 52) {
+                                if (di.address.count == 51) {
                                     if (di.address == self.payeeAddress) {
-                                        Text("Payee Amount:     ")
+                                        Text("Payee Amount:  ")
                                     } else {
                                         Text("Coins Returned:")
                                     }
                                 } else {
-                                        Text("Output Tx Fee:    ")
+                                        Text("Output Tx Fee: ")
                                 }
                                 Text(String(Double(di.value) / Double(1000000000)))
                             }

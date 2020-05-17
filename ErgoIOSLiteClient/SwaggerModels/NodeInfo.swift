@@ -14,73 +14,40 @@ public struct NodeInfo: Codable {
         case digest = "digest"
         case utxo = "utxo"
     }
-
+    public var currentTime: UInt64?
     public var name: String
-
     public var appVersion: String
-
-    /** Can be &#x27;null&#x27; if state is empty (no full block is applied since node launch) */
-    public var fullHeight: Int?
-
-    /** Can be &#x27;null&#x27; if state is empty (no header applied since node launch) */
-    public var headersHeight: Int?
-
-    /** Can be &#x27;null&#x27; if no full block is applied since node launch */
+    public var fullHeight: UInt64?
+    public var headersHeight: UInt64?
     public var bestFullHeaderId: String?
-
-    /** Can be &#x27;null&#x27; if no full block is applied since node launch */
     public var previousFullHeaderId: String?
-
-    /** Can be &#x27;null&#x27; if no header applied since node launch */
     public var bestHeaderId: String?
-
-    /** Can be &#x27;null&#x27; if state is empty (no full block is applied since node launch) */
     public var stateRoot: String?
     public var stateType: StateType?
-
-    /** Can be &#x27;null&#x27; if no full block is applied since node launch */
     public var stateVersion: String?
-
+    public var peersCount: Int?
+    public var unconfirmedCount: Int?
+    public var difficulty: UInt64?
+    public var launchTime: UInt64?
+    public var headersScore: Decimal?
+    public var fullBlocksScore: Decimal?
+    public var genesisBlockId: String?
+    public var parameters: Parameters?
     public var isMining: Bool?
 
-    /** Number of connected peers */
-    public var peersCount: Int?
-
-    /** Current unconfirmed transactions count */
-    public var unconfirmedCount: Int?
-
-    /** Difficulty on current bestFullHeaderId. Can be &#x27;null&#x27; if no full block is applied since node launch */
-    public var difficulty: Int?
-
-    /** Current internal node time */
-    public var currentTime: Int?
-
-    /** Time when the node was started */
-    public var launchTime: Int?
-
-    /** Can be &#x27;null&#x27; if no headers is applied since node launch */
-    public var headersScore: Int?
-
-    /** Can be &#x27;null&#x27; if no full block is applied since node launch */
-    public var fullBlocksScore: Int?
-
-    /** Can be &#x27;null&#x27; if genesis blocks is not produced yet */
-    public var genesisBlockId: String?
-
-    public var parameters: Parameters?
     public init() {
         self.name = "Test node"
         self.appVersion = "3.2.0"
         self.fullHeight = 100
         self.headersHeight = 100
     }
-    public init(name: String, appVersion: String, fullHeight: Int, headersHeight: Int) {
+    public init(name: String, appVersion: String, fullHeight: UInt64, headersHeight: UInt64) {
         self.name = name
         self.appVersion = appVersion
         self.fullHeight = fullHeight
         self.headersHeight = headersHeight
     }
-    public init(name: String, appVersion: String, fullHeight: Int, headersHeight: Int, bestFullHeaderId: String, previousFullHeaderId: String, bestHeaderId: String, stateRoot: String, stateType: StateType, stateVersion: String, isMining: Bool, peersCount: Int, unconfirmedCount: Int, difficulty: Int, currentTime: Int, launchTime: Int, headersScore: Int, fullBlocksScore: Int, genesisBlockId: String, parameters: Parameters) {
+    public init(name: String, appVersion: String, fullHeight: UInt64, headersHeight: UInt64, bestFullHeaderId: String, previousFullHeaderId: String, bestHeaderId: String, stateRoot: String, stateType: StateType, stateVersion: String, isMining: Bool, peersCount: Int, unconfirmedCount: Int, difficulty: UInt64, currentTime: UInt64, launchTime: UInt64, headersScore: Decimal, fullBlocksScore: Decimal, genesisBlockId: String, parameters: Parameters) {
         self.name = name
         self.appVersion = appVersion
         self.fullHeight = fullHeight

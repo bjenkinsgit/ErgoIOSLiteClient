@@ -11,11 +11,13 @@
 		E70BDE5423DB945D00100CC5 /* NodeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70BDE5323DB945D00100CC5 /* NodeInfo.swift */; };
 		E70BDE5623DB9A5800100CC5 /* Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70BDE5523DB9A5800100CC5 /* Parameters.swift */; };
 		E70BDE5823DB9B5300100CC5 /* NodeInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70BDE5723DB9B5300100CC5 /* NodeInfoView.swift */; };
+		E7244C5224437294008BE622 /* SyncStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7244C5124437294008BE622 /* SyncStatusView.swift */; };
 		E750821823DF50F200FD74C9 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E750821723DF50F200FD74C9 /* CircularProgressView.swift */; };
 		E750821A23DF635200FD74C9 /* CircularActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E750821923DF635200FD74C9 /* CircularActivityIndicator.swift */; };
 		E750821C23E0CAF300FD74C9 /* Accounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = E750821B23E0CAF300FD74C9 /* Accounts.swift */; };
 		E750821E23E0D01B00FD74C9 /* Account_E.swift in Sources */ = {isa = PBXBuildFile; fileRef = E750821D23E0D01B00FD74C9 /* Account_E.swift */; };
 		E750822023E20B9E00FD74C9 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E750821F23E20B9E00FD74C9 /* UserSettings.swift */; };
+		E7715F9823ECBB780072898A /* KeyboardAwareModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7715F9723ECBB780072898A /* KeyboardAwareModifier.swift */; };
 		E773E39023C24E86002F9D73 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E773E38F23C24E86002F9D73 /* Media.xcassets */; };
 		E7ACEE2523BCF38D00ABB500 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE2423BCF38D00ABB500 /* AppDelegate.swift */; };
 		E7ACEE2823BCF38D00ABB500 /* ErgoIOSLiteClient.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE2623BCF38D00ABB500 /* ErgoIOSLiteClient.xcdatamodeld */; };
@@ -57,6 +59,7 @@
 		E7ACEE8923BE7D1400ABB500 /* KeyboardResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE8823BE7D1400ABB500 /* KeyboardResponder.swift */; };
 		E7B2B1B223C2DD5B0045ABB7 /* WalletAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B2B1B123C2DD5B0045ABB7 /* WalletAPI.swift */; };
 		E7B2B1B523C666820045ABB7 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B2B1B423C666820045ABB7 /* Account.swift */; };
+		E7F7641024155B4300C21D9A /* SyncTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F7640F24155B4300C21D9A /* SyncTimer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,11 +67,13 @@
 		E70BDE5323DB945D00100CC5 /* NodeInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeInfo.swift; sourceTree = "<group>"; };
 		E70BDE5523DB9A5800100CC5 /* Parameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parameters.swift; sourceTree = "<group>"; };
 		E70BDE5723DB9B5300100CC5 /* NodeInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeInfoView.swift; sourceTree = "<group>"; };
+		E7244C5124437294008BE622 /* SyncStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncStatusView.swift; sourceTree = "<group>"; };
 		E750821723DF50F200FD74C9 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		E750821923DF635200FD74C9 /* CircularActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularActivityIndicator.swift; sourceTree = "<group>"; };
 		E750821B23E0CAF300FD74C9 /* Accounts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accounts.swift; sourceTree = "<group>"; };
 		E750821D23E0D01B00FD74C9 /* Account_E.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account_E.swift; sourceTree = "<group>"; };
 		E750821F23E20B9E00FD74C9 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
+		E7715F9723ECBB780072898A /* KeyboardAwareModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAwareModifier.swift; sourceTree = "<group>"; };
 		E773E38F23C24E86002F9D73 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		E7ACEE2123BCF38D00ABB500 /* Ergo Lite Client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ergo Lite Client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7ACEE2423BCF38D00ABB500 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -114,6 +119,7 @@
 		E7ACEE8823BE7D1400ABB500 /* KeyboardResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardResponder.swift; sourceTree = "<group>"; };
 		E7B2B1B123C2DD5B0045ABB7 /* WalletAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletAPI.swift; sourceTree = "<group>"; };
 		E7B2B1B423C666820045ABB7 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		E7F7640F24155B4300C21D9A /* SyncTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncTimer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,38 +154,41 @@
 		E7ACEE2323BCF38D00ABB500 /* ErgoIOSLiteClient */ = {
 			isa = PBXGroup;
 			children = (
-				E7B2B1B323C666700045ABB7 /* Models */,
-				E7ACEE4B23BD20D700ABB500 /* SwaggerModels */,
-				E7ACEE3D23BCF3B900ABB500 /* ErgoIOSLiteClient.entitlements */,
-				E773E38F23C24E86002F9D73 /* Media.xcassets */,
-				E7ACEE2423BCF38D00ABB500 /* AppDelegate.swift */,
-				E7ACEE2923BCF38D00ABB500 /* SceneDelegate.swift */,
-				E7ACEE2B23BCF38D00ABB500 /* Payment_E.swift */,
 				E750821D23E0D01B00FD74C9 /* Account_E.swift */,
-				E7ACEE2D23BCF38D00ABB500 /* ContentView.swift */,
-				E7ACEE3423BCF39100ABB500 /* LaunchScreen.storyboard */,
-				E7ACEE3723BCF39100ABB500 /* Info.plist */,
-				E7ACEE2623BCF38D00ABB500 /* ErgoIOSLiteClient.xcdatamodeld */,
-				E7ACEE3123BCF39100ABB500 /* Preview Content */,
-				E7ACEE4723BD1F8100ABB500 /* PaymentSend.swift */,
-				E7ACEE4923BD209500ABB500 /* HttpAuth.swift */,
-				E7ACEE5F23BD23E600ABB500 /* SecureStore.swift */,
-				E7ACEE6123BD242B00ABB500 /* SecureStoreQueryable.swift */,
-				E7ACEE6323BD244400ABB500 /* InternetProtocol.swift */,
-				E7ACEE6523BD246000ABB500 /* InternetAuthenticationType.swift */,
-				E7ACEE6723BD247600ABB500 /* SecureStoreError.swift */,
-				E7ACEE6923BD249A00ABB500 /* SecureStore.h */,
-				E7ACEE6A23BD24D400ABB500 /* Utils.swift */,
-				E7ACEE6E23BD43A300ABB500 /* CarBode2.swift */,
-				E7ACEE7023BD63A100ABB500 /* Payments.swift */,
-				E7ACEE7223BD655900ABB500 /* AccountSettingsView.swift */,
-				E7ACEE8623BD89A900ABB500 /* TransactionDetails.swift */,
-				E7ACEE8823BE7D1400ABB500 /* KeyboardResponder.swift */,
-				E70BDE5723DB9B5300100CC5 /* NodeInfoView.swift */,
-				E750821723DF50F200FD74C9 /* CircularProgressView.swift */,
-				E750821923DF635200FD74C9 /* CircularActivityIndicator.swift */,
 				E750821B23E0CAF300FD74C9 /* Accounts.swift */,
+				E7ACEE7223BD655900ABB500 /* AccountSettingsView.swift */,
+				E7ACEE2423BCF38D00ABB500 /* AppDelegate.swift */,
+				E7ACEE6E23BD43A300ABB500 /* CarBode2.swift */,
+				E750821923DF635200FD74C9 /* CircularActivityIndicator.swift */,
+				E750821723DF50F200FD74C9 /* CircularProgressView.swift */,
+				E7ACEE2D23BCF38D00ABB500 /* ContentView.swift */,
+				E7ACEE3D23BCF3B900ABB500 /* ErgoIOSLiteClient.entitlements */,
+				E7ACEE2623BCF38D00ABB500 /* ErgoIOSLiteClient.xcdatamodeld */,
+				E7ACEE4923BD209500ABB500 /* HttpAuth.swift */,
+				E7ACEE3723BCF39100ABB500 /* Info.plist */,
+				E7ACEE6523BD246000ABB500 /* InternetAuthenticationType.swift */,
+				E7ACEE6323BD244400ABB500 /* InternetProtocol.swift */,
+				E7715F9723ECBB780072898A /* KeyboardAwareModifier.swift */,
+				E7ACEE8823BE7D1400ABB500 /* KeyboardResponder.swift */,
+				E7ACEE3423BCF39100ABB500 /* LaunchScreen.storyboard */,
+				E773E38F23C24E86002F9D73 /* Media.xcassets */,
+				E7B2B1B323C666700045ABB7 /* Models */,
+				E70BDE5723DB9B5300100CC5 /* NodeInfoView.swift */,
+				E7ACEE2B23BCF38D00ABB500 /* Payment_E.swift */,
+				E7ACEE7023BD63A100ABB500 /* Payments.swift */,
+				E7ACEE4723BD1F8100ABB500 /* PaymentSend.swift */,
+				E7ACEE3123BCF39100ABB500 /* Preview Content */,
+				E7ACEE2923BCF38D00ABB500 /* SceneDelegate.swift */,
+				E7ACEE6923BD249A00ABB500 /* SecureStore.h */,
+				E7ACEE5F23BD23E600ABB500 /* SecureStore.swift */,
+				E7ACEE6723BD247600ABB500 /* SecureStoreError.swift */,
+				E7ACEE6123BD242B00ABB500 /* SecureStoreQueryable.swift */,
+				E7ACEE4B23BD20D700ABB500 /* SwaggerModels */,
+				E7F7640F24155B4300C21D9A /* SyncTimer.swift */,
+				E7ACEE8623BD89A900ABB500 /* TransactionDetails.swift */,
 				E750821F23E20B9E00FD74C9 /* UserSettings.swift */,
+				E7ACEE6A23BD24D400ABB500 /* Utils.swift */,
+				E7244C5124437294008BE622 /* SyncStatusView.swift */,
 			);
 			path = ErgoIOSLiteClient;
 			sourceTree = "<group>";
@@ -203,27 +212,27 @@
 		E7ACEE4B23BD20D700ABB500 /* SwaggerModels */ = {
 			isa = PBXGroup;
 			children = (
+				E7ACEE5A23BD21E000ABB500 /* ApiError.swift */,
+				E7ACEE5023BD213300ABB500 /* Asset.swift */,
+				E7ACEE5423BD216700ABB500 /* BalanceSnapshot.swift */,
 				E7ACEE4C23BD20ED00ABB500 /* Digest32.swift */,
 				E7ACEE4E23BD211900ABB500 /* ErgoAddress.swift */,
-				E7ACEE5023BD213300ABB500 /* Asset.swift */,
-				E7ACEE5223BD214D00ABB500 /* Registers.swift */,
-				E7ACEE5423BD216700ABB500 /* BalanceSnapshot.swift */,
-				E7ACEE5623BD21AE00ABB500 /* PaymentRequest.swift */,
-				E7ACEE5823BD21C800ABB500 /* SValue.swift */,
-				E7ACEE5A23BD21E000ABB500 /* ApiError.swift */,
-				E7ACEE7423BD851600ABB500 /* Transactions.swift */,
-				E7ACEE7623BD865600ABB500 /* TransactionId.swift */,
-				E7ACEE7823BD867500ABB500 /* ErgoTransactionInput.swift */,
 				E7ACEE7A23BD86AC00ABB500 /* ErgoTransactionDataInput.swift */,
+				E7ACEE7823BD867500ABB500 /* ErgoTransactionInput.swift */,
 				E7ACEE7C23BD86E300ABB500 /* ErgoTransactionOutput.swift */,
-				E7ACEE7E23BD872300ABB500 /* TransactionBoxId.swift */,
-				E7ACEE8023BD874000ABB500 /* SpendingProof.swift */,
 				E7ACEE8223BD876E00ABB500 /* ErgoTree.swift */,
-				E7ACEE8423BD879A00ABB500 /* SpendingProofBytes.swift */,
-				E7B2B1B123C2DD5B0045ABB7 /* WalletAPI.swift */,
 				E70BDE5123D8F06A00100CC5 /* Error_UnlockWallet.swift */,
 				E70BDE5323DB945D00100CC5 /* NodeInfo.swift */,
 				E70BDE5523DB9A5800100CC5 /* Parameters.swift */,
+				E7ACEE5623BD21AE00ABB500 /* PaymentRequest.swift */,
+				E7ACEE5223BD214D00ABB500 /* Registers.swift */,
+				E7ACEE8023BD874000ABB500 /* SpendingProof.swift */,
+				E7ACEE8423BD879A00ABB500 /* SpendingProofBytes.swift */,
+				E7ACEE5823BD21C800ABB500 /* SValue.swift */,
+				E7ACEE7E23BD872300ABB500 /* TransactionBoxId.swift */,
+				E7ACEE7623BD865600ABB500 /* TransactionId.swift */,
+				E7ACEE7423BD851600ABB500 /* Transactions.swift */,
+				E7B2B1B123C2DD5B0045ABB7 /* WalletAPI.swift */,
 			);
 			path = SwaggerModels;
 			sourceTree = "<group>";
@@ -319,6 +328,7 @@
 				E7ACEE7323BD655900ABB500 /* AccountSettingsView.swift in Sources */,
 				E7ACEE8323BD876E00ABB500 /* ErgoTree.swift in Sources */,
 				E7ACEE7B23BD86AC00ABB500 /* ErgoTransactionDataInput.swift in Sources */,
+				E7244C5224437294008BE622 /* SyncStatusView.swift in Sources */,
 				E7B2B1B523C666820045ABB7 /* Account.swift in Sources */,
 				E7ACEE7F23BD872300ABB500 /* TransactionBoxId.swift in Sources */,
 				E750821823DF50F200FD74C9 /* CircularProgressView.swift in Sources */,
@@ -339,6 +349,7 @@
 				E7ACEE5B23BD21E000ABB500 /* ApiError.swift in Sources */,
 				E750821A23DF635200FD74C9 /* CircularActivityIndicator.swift in Sources */,
 				E7ACEE6823BD247600ABB500 /* SecureStoreError.swift in Sources */,
+				E7715F9823ECBB780072898A /* KeyboardAwareModifier.swift in Sources */,
 				E7ACEE4F23BD211900ABB500 /* ErgoAddress.swift in Sources */,
 				E7ACEE7D23BD86E300ABB500 /* ErgoTransactionOutput.swift in Sources */,
 				E7ACEE5723BD21AE00ABB500 /* PaymentRequest.swift in Sources */,
@@ -350,6 +361,7 @@
 				E7ACEE7723BD865600ABB500 /* TransactionId.swift in Sources */,
 				E7ACEE4D23BD20ED00ABB500 /* Digest32.swift in Sources */,
 				E7ACEE6B23BD24D400ABB500 /* Utils.swift in Sources */,
+				E7F7641024155B4300C21D9A /* SyncTimer.swift in Sources */,
 				E7ACEE6223BD242B00ABB500 /* SecureStoreQueryable.swift in Sources */,
 				E7ACEE5323BD214D00ABB500 /* Registers.swift in Sources */,
 				E7ACEE4A23BD209500ABB500 /* HttpAuth.swift in Sources */,

@@ -12,7 +12,7 @@ import SwiftUI
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    var settings = UserSettings()
+    let defaults = UserDefaults.standard
     
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -25,10 +25,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // Create the SwiftUI view and set the context as the value for the managedObjectContext environment keyPath
         let contentView = ContentView().environment(\.managedObjectContext, context)
-
+        let settings: UserSettings = (UIApplication.shared.delegate as! AppDelegate).settings
+        
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
+            settings.selectedAccountIndex = defaults.integer(forKey: "DefaultAccount")
             window.rootViewController = UIHostingController(rootView: contentView.environmentObject(settings))
             self.window = window
             window.makeKeyAndVisible()
@@ -40,6 +42,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This occurs shortly after the scene enters the background, or when its session is discarded.
         // Release any resources associated with this scene that can be re-created the next time the scene connects.
         // The scene may re-connect later, as its session was not neccessarily discarded (see `application:didDiscardSceneSessions` instead).
+        let settings: UserSettings = (UIApplication.shared.delegate as! AppDelegate).settings
+        self.defaults.set(settings.selectedAccountIndex, forKey: "DefaultAccount")
+        print("Scene:  Did Disconnect")
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
