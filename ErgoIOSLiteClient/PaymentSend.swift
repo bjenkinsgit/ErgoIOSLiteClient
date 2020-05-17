@@ -57,15 +57,22 @@ struct PaymentSend: View {
                    Text("\(event.timestamp!, formatter: dateFormatter)").padding(.bottom, 100)
                 }
               }
-                Section {
                      VStack(alignment: .leading) {
-                       Text("Memo:")
+                        HStack {
+                            Spacer()
+                        }
+                       
+                        if (self.event.tranzId == nil) {
+                            Text("Memo:")
                          TextField("e.g. Pmt for services", text: memoBinding)
                              .background(/*@START_MENU_TOKEN@*/Color.orange/*@END_MENU_TOKEN@*/)
-                             
-                     }
-                 } // Section
-                Section {
+                        } else {
+                            HStack {
+                            Text("Memo:       ")
+                            Text(self.memo).foregroundColor(/*@START_MENU_TOKEN@*/Color.orange/*@END_MENU_TOKEN@*/)
+                            }
+                        }
+                     }.padding(.bottom, 10)
                     HStack {
                         if (showBarCodeScanner) {
                             CarBode2(supportBarcode: [.qr]) //Set type of barcode you want to scan
@@ -76,27 +83,39 @@ struct PaymentSend: View {
                                 self.showBarCodeScanner.toggle()
                               }
                         } else {
-                            VStack(alignment: .leading) {
+                            HStack {
                                 Text("Payee Wallet Address:")
-                                HStack {
-                                    TextField("Pay to Address", text: send2AddressBinding).background(/*@START_MENU_TOKEN@*/Color.orange/*@END_MENU_TOKEN@*/).font(.subheadline).lineLimit(nil)
-                                    Button(action: {
-                                        UIApplication.shared.endEditing()
-                                        self.showBarCodeScanner = true
-                                    }) {
-                                        Image(systemName: "qrcode")
-                                        .foregroundColor(.secondary)
+                                if (self.event.tranzId == nil) {
+                                    HStack {
+                                        TextField("Pay to Address", text: send2AddressBinding).background(/*@START_MENU_TOKEN@*/Color.orange/*@END_MENU_TOKEN@*/).font(.subheadline).lineLimit(2)
+                                        Button(action: {
+                                            UIApplication.shared.endEditing()
+                                            self.showBarCodeScanner = true
+                                        }) {
+                                            Image(systemName: "qrcode")
+                                            .foregroundColor(.secondary)
+                                        }
                                     }
+                                } else {
+                                    Text(self.send2Address).foregroundColor(/*@START_MENU_TOKEN@*/Color.orange/*@END_MENU_TOKEN@*/).multilineTextAlignment(.leading)
                                 }
-                            }
+                            }.padding(.bottom, 10)
                         } 
                      }
-                } // Section
-            VStack(alignment: .leading) {
-                Text("Pay amount (in nano ERGs):")
-                TextField("eg. 10000000000", text: send2AmtBinding).keyboardType(.numberPad).background(/*@START_MENU_TOKEN@*/Color.orange/*@END_MENU_TOKEN@*/).padding(.bottom,50)
-            } // VStack
-            VStack {
+                VStack(alignment: .leading) {
+                    HStack {
+                        Spacer()
+                    }
+                    if (self.event.tranzId == nil) {
+                      Text("Pay amount (in nano ERGs):")
+                      TextField("eg. 10000000000", text: send2AmtBinding).keyboardType(.numberPad).background(/*@START_MENU_TOKEN@*/Color.orange/*@END_MENU_TOKEN@*/).padding(.bottom,50)
+                    } else {
+                        HStack {
+                            Text("Paid amount:")
+                            Text("\(self.send2Amt) nERG").foregroundColor(/*@START_MENU_TOKEN@*/Color.orange/*@END_MENU_TOKEN@*/)
+                        }
+                    }
+                }.padding(.bottom, 50)
                      NavigationLink(destination: TransactionDetails(payeeAddress: self.event.sendToAddress ?? "",
                                                                     ergoTransactionId:self.event.tranzId ?? "",
                                                                     manager: self.manager
@@ -107,7 +126,6 @@ struct PaymentSend: View {
                            Text("\((self.event.tranzId ?? ""))")
                          }
                     }.disabled(notProperTranzId()) // NavigationLink
-             }  // VStack
             } // VStack
         } // NavigationView
         .navigationBarTitle("Send Payment Form", displayMode: .inline)
@@ -146,6 +164,8 @@ struct PaymentSend: View {
     }
 
     func checkIsOkToMakePmt() {
+        let localtid = manager.tranzId
+        print("tranzId = \(localtid)")
         isOkToMakePmt = self.send2Amt.count > 0 && manager.tranzId.count==0 && self.memo.count > 3 && self.send2Address.count > 15
     }
     
@@ -184,7 +204,8 @@ struct PaymentSend: View {
            //Test data
                    let newPayment_E = Payment_E.init(context: context)
             newPayment_E.memo = "memo goes here"
-            newPayment_E.sendToAddress = "3WynPS3DCQ8pD21vd6QGdSSThyUVn1fXoDVxn2AGEwFNshvz4Jzi"
+//            newPayment_E.sendToAddress = "3WynPS3DCQ8pD21vd6QGdSSThyUVn1fXoDVxn2AGEwFNshvz4Jzi"
+            newPayment_E.sendToAddress = "Now is the time for all good men to come to the aid of their party"
             newPayment_E.sendToAmount = 1.25
             
                    newPayment_E.timestamp = Date()

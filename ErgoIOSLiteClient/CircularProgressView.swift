@@ -22,7 +22,8 @@ struct CircularProgressBar: View {
     }
     
     func getPercentage(_ value:CGFloat) -> String {
-        let intValue = Int(ceil(value * 100))
-        return "\(intValue) %"
+          return String(format: "%.2f%%", value * 100)
+//        let intValue = Int(ceil(value * 100))
+//        return "\(intValue) %"
     }
 }

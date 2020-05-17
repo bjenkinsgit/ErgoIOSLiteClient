@@ -17,6 +17,7 @@ struct ERGO_API_ROUTES {
   static let wallet_lock_get = "/wallet/lock"
   static let wallet_status_get = "/wallet/status"
   static let info_get = "/info"
+  static let wallet_addresses = "/wallet/addresses"
 }
 
 let dateFormatter: DateFormatter = {
@@ -25,6 +26,10 @@ let dateFormatter: DateFormatter = {
     dateFormatter.timeStyle = .medium
     return dateFormatter
 }()
+
+extension UITextContentType {
+    public static let unspecified = UITextContentType(rawValue: "unspecified")
+}
 
 extension Double {
 

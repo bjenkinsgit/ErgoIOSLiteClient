@@ -9,5 +9,16 @@
 import SwiftUI
 
 class UserSettings: ObservableObject {
+    @Published var defaults = UserDefaults.standard
     @Published var account = Account()
+    @Published var isAuthenticated = false
+    @Published var networkMonitoringStarted = false
+    @Published var selectedAccountIndex = 0
+    @Published var fullHeightVal = UInt64(0)
+    @Published var headersHeightVal = UInt64(0)
+    @Published var progressBarValue: CGFloat = 0
+    
+    var description: String {
+        return "fullHeightVal=\(self.fullHeightVal), headersHeightVal=\(self.headersHeightVal)"
+    }
 }

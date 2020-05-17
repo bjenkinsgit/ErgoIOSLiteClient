@@ -22,6 +22,7 @@ struct Accounts: View {
     @Environment(\.managedObjectContext) var moc
     @FetchRequest(entity: Account_E.entity(), sortDescriptors: []) var accounts : FetchedResults<Account_E>
     @State private var needsRefresh = false
+    @EnvironmentObject var settings: UserSettings
     
     var body: some View {
       NavigationView {

@@ -13,8 +13,6 @@ struct AccountSettingsView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Environment(\.managedObjectContext) var moc
     @ObservedObject var account_E: Account_E
-//    @State private var accountName = ""
-    @State private var isAccountNameChanged = false
     @State var secureStoreWithGenericPwd: SecureStore!
     @State private var isUnlocked = false
     @State private var showingSaveSucessAlert = false
@@ -22,18 +20,40 @@ struct AccountSettingsView: View {
     @State private var showAuthKeyPwdField = false
     @State private var currLockClicked = 0 // 1 means authKey, 2 means authKeyPwd
 //    @ObservedObject private var keyboard = KeyboardResponder()
-    @ObservedObject var account: Account
+//    @ObservedObject var account: Account
+    @State var account: Account
+    @State private var accountName = ""
+    @State private var authKeyString : String = ""
+    @State private var authKeyPasswordString: String = ""
+    @State private var ergoNodeUrlString: String = "http://192.168.1.x:9053"
+    
 
     @State private var url = ""
-
+    
     var body: some View {
         
     let nameBinding = Binding<String>(get: {
-        self.account_E.name ?? ""
+        //self.account_E.name ?? ""
+        self.accountName
     }, set: {
-        self.account_E.name = $0
-        self.setIsAccountNameChangedToTrue()
+        //self.account_E.name = $0
+        self.accountName = $0
     })
+    let authKeyBinding = Binding<String>(get: {
+        self.authKeyString
+    }, set: {
+        self.authKeyString = $0
+    })
+    let passwordBinding = Binding<String>(get: {
+        self.authKeyPasswordString
+    }, set: {
+        self.authKeyPasswordString = $0
+    })
+    let urlBinding = Binding<String>(get: {
+        self.ergoNodeUrlString
+    }, set: {
+        self.ergoNodeUrlString = $0
+        })
 
     return NavigationView {
 //         Form {
@@ -50,9 +70,10 @@ struct AccountSettingsView: View {
                 .foregroundColor(.secondary)
                 if showAuthKeyField {
                     TextField("e.g. abcd1234...",
-                    text: $account.authkey).background(/*@START_MENU_TOKEN@*/Color.orange/*@END_MENU_TOKEN@*/)
+                        text: authKeyBinding).background(/*@START_MENU_TOKEN@*/Color.orange/*@END_MENU_TOKEN@*/)
                 } else {
-                   SecureField("e.g. abcd1234...", text: $account.authkey).background(/*@START_MENU_TOKEN@*/Color.orange/*@END_MENU_TOKEN@*/)
+                   SecureField("e.g. abcd1234...", text: authKeyBinding).background(/*@START_MENU_TOKEN@*/Color.orange/*@END_MENU_TOKEN@*/)
+                    .textContentType(.unspecified)
                 }
                 Button(action: {
                     self.currLockClicked = 1
@@ -71,9 +92,10 @@ struct AccountSettingsView: View {
              .foregroundColor(.secondary)
                 if showAuthKeyPwdField {
                     TextField("e.g. your_secret_password",
-                    text: $account.authKeyPwd).background(/*@START_MENU_TOKEN@*/Color.orange/*@END_MENU_TOKEN@*/)
+                    text: passwordBinding).background(/*@START_MENU_TOKEN@*/Color.orange/*@END_MENU_TOKEN@*/)
                 } else {
-                  SecureField("e.g. your_secret_password", text: $account.authKeyPwd).background(/*@START_MENU_TOKEN@*/Color.orange/*@END_MENU_TOKEN@*/)
+                  SecureField("e.g. your_secret_password", text: passwordBinding).background(/*@START_MENU_TOKEN@*/Color.orange/*@END_MENU_TOKEN@*/)
+                    .textContentType(.unspecified)
                 }
                 Button(action: {
                     self.currLockClicked = 2
@@ -87,12 +109,12 @@ struct AccountSettingsView: View {
             Divider().accentColor(Color.red)
             VStack(alignment: .leading) {
                 Text("ERGO Node Url:")
-                TextField("e.g. http://your.ergo.node:9052", text: $account.ergoApiUrl).background(/*@START_MENU_TOKEN@*/Color.orange/*@END_MENU_TOKEN@*/)
-            }
+                TextField("e.g. http://your.ergo.node:9052", text: urlBinding).background(/*@START_MENU_TOKEN@*/Color.orange/*@END_MENU_TOKEN@*/)
+            }.KeyboardAwarePadding()
             Divider().accentColor(Color.red)
               Button(action: saveAuthData) {
                     Text("SAVE CHANGES")
-              }.disabled(!self.account.accountSettingsChanged && !self.isAccountNameChanged) // HStack
+              }.disabled(formNetYetFilled()) // HStack
            
 
          } // scroll view
@@ -108,8 +130,17 @@ struct AccountSettingsView: View {
     }
     
     
-    func setIsAccountNameChangedToTrue() {
-        self.isAccountNameChanged = true
+    
+    func formNetYetFilled() -> Bool {
+      //self.account.ergoApiUrl
+      //self.account.authKeyPwd
+      //self.account.authkey
+      let retval = (self.accountName.count > 2 &&
+              self.authKeyString.count > 15 &&
+              self.authKeyPasswordString.count > 3 &&
+              self.ergoNodeUrlString.count > 15)
+      return !retval
+      //!self.account.accountSettingsChanged && !self.isAccountNameChanged
     }
     
     func authenticate() {
@@ -158,14 +189,15 @@ struct AccountSettingsView: View {
         }
         do {
            // self.accountName = self.account_E.name ?? ""
-            self.account.authkey = try (secureStoreWithGenericPwd.getValue(for: "authkey") ?? "")
-            self.account.authKeyOrig = self.account.authkey
-            self.account.authKeyPwd = try (secureStoreWithGenericPwd.getValue(for: "authKeyPwd") ?? "")
-            self.account.authKeyPwdOrig = self.account.authKeyPwd
-            self.account.ergoApiUrl = try (secureStoreWithGenericPwd.getValue(for: "ergoApiUrl") ?? "")
-            self.account.ergoApiUrlOrig = self.account.ergoApiUrl
+            self.authKeyString = try (secureStoreWithGenericPwd.getValue(for: "authkey") ?? "")
+//            self.account.authKeyOrig = self.authkeyString
+            self.authKeyPasswordString = try (secureStoreWithGenericPwd.getValue(for: "authKeyPwd") ?? "")
+//            self.account.authKeyPwdOrig = self.account.authKeyPwd
+            self.ergoNodeUrlString = try (secureStoreWithGenericPwd.getValue(for: "ergoApiUrl") ?? "")
+//            self.account.ergoApiUrlOrig = self.account.ergoApiUrl
             self.account.isLoaded = true
             self.account.accountSettingsChanged = false
+            self.accountName = self.account_E.name ?? ""
 //            showSendTo = (authkey.count>0 && authKeyPwd.count>0 && ergoApiUrl.count>0)
         } catch (let e) {
           print("EXCEPTION: Loading authkey and authKeyPwd failed with \(e.localizedDescription).")
@@ -184,12 +216,6 @@ struct AccountSettingsView: View {
     
     func saveAuthData() {
         do {
-            if (isAccountNameChanged) {
-//                (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
-                try moc.save()
-//                try account_E.managedObjectContext?.save()
-                return
-            }
             if (!self.account.isLoaded) {
                // self.account_E.name = $accountName.wrappedValue
                 guard let accountstr = self.account_E.id else { return }
@@ -197,10 +223,17 @@ struct AccountSettingsView: View {
                 let genericPwdQueryable = GenericPasswordQueryable(service: assocdomain)
                 secureStoreWithGenericPwd = SecureStore(secureStoreQueryable: genericPwdQueryable)
             }
-            try secureStoreWithGenericPwd.setValue(self.account.authkey, for: "authkey")
-            try secureStoreWithGenericPwd.setValue(self.account.authKeyPwd, for: "authKeyPwd")
-            try secureStoreWithGenericPwd.setValue(self.account.ergoApiUrl, for: "ergoApiUrl")
+            try secureStoreWithGenericPwd.setValue(self.authKeyString, for: "authkey")
+            try secureStoreWithGenericPwd.setValue(self.authKeyPasswordString, for: "authKeyPwd")
+            try secureStoreWithGenericPwd.setValue(self.ergoNodeUrlString, for: "ergoApiUrl")
             self.showingSaveSucessAlert.toggle()
+            if (self.accountName != self.account_E.name) {
+                  self.account_E.name = self.accountName
+                  try moc.save()
+            }
+            self.account.authkey = self.authKeyString
+            self.account.authKeyPwd = self.authKeyPasswordString
+            self.account.ergoApiUrl = self.ergoNodeUrlString
       } catch (let e) {
         print("EXCEPTION: Saving authkey and authKeyPwd failed with \(e.localizedDescription).")
       }
