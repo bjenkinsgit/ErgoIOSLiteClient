@@ -14,6 +14,7 @@ class UserSettings: ObservableObject {
     @Published var isAuthenticated = false
     @Published var networkMonitoringStarted = false
     @Published var selectedAccountIndex = 0
+    @Published var lastKnownNumberOfAccounts = 0
     @Published var fullHeightVal = UInt64(0)
     @Published var headersHeightVal = UInt64(0)
     @Published var progressBarValue: CGFloat = 0

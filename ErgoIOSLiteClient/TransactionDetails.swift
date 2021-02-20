@@ -21,7 +21,7 @@ struct TransactionDetails: View {
         NavigationView {
             if ergTranzRealized {
                 VStack {
-                    Text("Tranz id:")
+                    Text("Tranaction id:")
                     Text(ergoTransactionId)
                         .foregroundColor(.yellow)
                         .contextMenu {

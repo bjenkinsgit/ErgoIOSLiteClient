@@ -60,7 +60,7 @@ struct NodeInfoView: View {
             }
         }
       }.onAppear(perform: loadNodeInfoDetail)
-    }
+        .navigationViewStyle(StackNavigationViewStyle())    }
     
     func loadNodeInfoDetail() {
         self.manager.getInfo(urlstr, completionHandler: { (result: NodeInfo)  in

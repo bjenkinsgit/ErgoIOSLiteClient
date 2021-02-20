@@ -124,3 +124,5 @@ if let responseERROR = try? JSONDecoder().decode(NI.self, from: data_mainnet)  {
 }
 
 
+
+

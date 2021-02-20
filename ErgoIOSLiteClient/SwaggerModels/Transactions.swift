@@ -16,8 +16,8 @@ public struct ErgoTransaction: Codable {
     public var dataInputs: [ErgoTransactionDataInput]
     public var outputs: [ErgoTransactionOutput]
     public var size: Int?
-    public var numConfirmations: Int?
-    public init(_id: String? = nil, inputs: [ErgoTransactionInput]=[], dataInputs: [ErgoTransactionDataInput]=[], outputs: [ErgoTransactionOutput]=[], size: Int? = nil, numConfirmations: Int? = nil) {
+    public var numConfirmations: Int64?
+    public init(_id: String? = nil, inputs: [ErgoTransactionInput]=[], dataInputs: [ErgoTransactionDataInput]=[], outputs: [ErgoTransactionOutput]=[], size: Int? = nil, numConfirmations: Int64? = nil) {
         self.id = _id
         self.inputs = inputs
         self.dataInputs = dataInputs

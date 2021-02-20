@@ -12,6 +12,7 @@ import CoreData
 struct Payments: View {
     @Environment(\.managedObjectContext) var viewContext
     @EnvironmentObject var settings: UserSettings
+    
 
     var body: some View {
         NavigationView {
