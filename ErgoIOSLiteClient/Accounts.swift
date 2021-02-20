@@ -34,20 +34,21 @@ struct Accounts: View {
                     )
                     {
                         Text("Account: \(account_e.name ?? "<unnamed>")")
-                        RefreshView(toggle: self.needsRefresh)
+                        //RefreshView(toggle: self.needsRefresh)
                     }
-                }.onDelete { ndx in
+                }.onDelete {
+                    ndx in
                     self.accounts.deleteAccount(at: ndx, from: self.moc)
+                    //self.settings.isAuthenticated = false
                 }
             }.navigationBarTitle(Text("Accounts"))
-            .background(RefreshView(toggle: self.needsRefresh   ))
+            //.background(RefreshView(toggle: self.needsRefresh   ))
             
             Button("Add") {
-                Account_E.createAccount(in: self.moc, .none)
+                Account_E.createAccount(in: self.moc, .none)                
             }
         }
-        }
-        
+        }.navigationViewStyle(StackNavigationViewStyle())
     }
     
 }

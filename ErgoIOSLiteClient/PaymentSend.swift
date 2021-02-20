@@ -22,7 +22,7 @@ struct PaymentSend: View {
      @EnvironmentObject var settings: UserSettings
      @State private var send2Address = ""
      @State private var send2Amt = ""
-    
+     @State private var isShowingNanos = true
      @State private var memo = ""
      @State private var showBarCodeScanner = false
      @State private var isOkToMakePmt = false
@@ -112,7 +112,7 @@ struct PaymentSend: View {
                     } else {
                         HStack {
                             Text("Paid amount:")
-                            Text("\(self.send2Amt) nERG").foregroundColor(/*@START_MENU_TOKEN@*/Color.orange/*@END_MENU_TOKEN@*/)
+                                Text("\(getSentAmtFormatted())").foregroundColor(/*@START_MENU_TOKEN@*/Color.orange/*@END_MENU_TOKEN@*/).onTapGesture{ self.isShowingNanos.toggle() }
                         }
                     }
                 }.padding(.bottom, 50)
@@ -122,7 +122,7 @@ struct PaymentSend: View {
                                                                     ))
                      {
                          VStack {
-                           Text("Tranz id:")
+                           Text("Transaction id:")
                            Text("\((self.event.tranzId ?? ""))")
                          }
                     }.disabled(notProperTranzId()) // NavigationLink
@@ -148,6 +148,25 @@ struct PaymentSend: View {
  
 
       }
+    
+    func getSentAmtFormatted() -> String {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        if let send2AmtVal = Double(self.send2Amt.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)) {
+            var wholeErgs: Double = 0.0
+            var units = "nERG"
+            if (self.isShowingNanos) {
+                wholeErgs = send2AmtVal
+            } else {
+                wholeErgs = send2AmtVal / Double(1000000000.0)
+                units = "ERG"
+            }
+            let retval = numberFormatter.string(from: NSNumber(value: wholeErgs)) ?? ""
+            return retval + " " + units
+        } else {
+            return self.send2Amt + " err"
+        }
+    }
     
     func notProperTranzId()->Bool {
         guard let tid = self.event.tranzId  else { return true }

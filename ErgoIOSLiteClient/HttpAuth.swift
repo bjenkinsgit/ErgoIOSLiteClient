@@ -151,7 +151,7 @@ class HttpAuth: ObservableObject {
                 return
             }
             if let resData = try? JSONDecoder().decode(NodeInfo.self, from: data) {
-//                print(resData)
+                //print(resData)
                 DispatchQueue.main.async {
                     self.isOnline = true
                     completionHandler(resData)
