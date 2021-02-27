@@ -114,7 +114,7 @@ struct AccountSettingsView: View {
             Divider().accentColor(Color.red)
               Button(action: saveAuthData) {
                     Text("SAVE CHANGES")
-              }.disabled(formNetYetFilled()) // HStack
+              }.disabled(formNotYetFilled()) // HStack
            
 
          } // scroll view
@@ -131,7 +131,7 @@ struct AccountSettingsView: View {
     
     
     
-    func formNetYetFilled() -> Bool {
+    func formNotYetFilled() -> Bool {
       //self.account.ergoApiUrl
       //self.account.authKeyPwd
       //self.account.authkey

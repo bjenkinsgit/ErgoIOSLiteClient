@@ -177,15 +177,16 @@ class HttpAuth: ObservableObject {
             var request = URLRequest(url: url)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "accept")
-            request.setValue(api_key, forHTTPHeaderField: "api_key")
+            let api_key_encoded = api_key.addingPercentEncoding(withAllowedCharacters: .alphanumerics)
+
+            request.setValue(api_key_encoded, forHTTPHeaderField: "api_key")
             self.error_reason = ""
             self.error_detail = ""
             self.error_code = 0
-
+            URLSession.shared.configuration.allowsCellularAccess = true
             URLSession.shared.dataTask(with: request) { (data, response, error) in
                 guard let data = data, error == nil else {
                     let resError = error as! URLError
-                    
                     DispatchQueue.main.async {
                         self.handle(resError)
                     }
@@ -212,6 +213,47 @@ class HttpAuth: ObservableObject {
             }.resume()
         }
 
+    func getWalletAddresses_old(_ urlstr: String, _ api_key: String, completionHandler: @escaping([String]) -> Void)
+    {
+        guard let url = URL(string: urlstr+ERGO_API_ROUTES.wallet_addresses) else { return }
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "accept")
+        let api_key_encoded = api_key.addingPercentEncoding(withAllowedCharacters: .alphanumerics)
+
+        request.setValue(api_key_encoded, forHTTPHeaderField: "api_key")
+        self.error_reason = ""
+        self.error_detail = ""
+        self.error_code = 0
+        URLSession.shared.configuration.allowsCellularAccess = true
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            guard let data = data, error == nil else {
+                let resError = error as! URLError
+                DispatchQueue.main.async {
+                    self.handle(resError)
+                }
+                return
+            }
+            if let resData = try? JSONDecoder().decode([String].self, from: data) {
+//                   print(resData)
+                DispatchQueue.main.async {
+                     completionHandler(resData)
+                }
+            } else
+                if let responseERROR = try? JSONDecoder().decode(ApiError.self, from: data)  {
+  //             print(responseERROR)
+               DispatchQueue.main.async {
+                  self.error_reason = responseERROR.reason
+                  self.error_detail = responseERROR.detail
+                  self.error_code = responseERROR.error
+                  //self.showingPaymentErrorAlert = true
+               }
+                } else {
+                    print("Woah, don't know what happened in the getWalletAddresses() method...")
+                    print(data)
+                }
+        }.resume()
+    }
 
     func getWalletTranzById(_ urlstr: String, _ api_key: String, _ tranzid: String, completionHandler: @escaping(ErgoTransaction) -> Void)
     {
