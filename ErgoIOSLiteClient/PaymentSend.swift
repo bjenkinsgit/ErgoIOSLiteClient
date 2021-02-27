@@ -26,9 +26,21 @@ struct PaymentSend: View {
      @State private var memo = ""
      @State private var showBarCodeScanner = false
      @State private var isOkToMakePmt = false
+     @State private var transferToAccountAddress = ""
+     @State private var transferToAccountPickerIndex = 0
+     @State private var showPicker = false
      @ObservedObject private var keyboard = KeyboardResponder()
+     @FetchRequest(entity: Account_E.entity(), sortDescriptors: []) var accounts : FetchedResults<Account_E>
+
 
       var body: some View {
+        let selectedAccountIndexBinding = Binding<Int>(get: {
+            self.transferToAccountPickerIndex
+        }, set: {
+            self.transferToAccountPickerIndex = $0
+            
+        })
+        
         let memoBinding = Binding<String>(get: {
             self.memo
         }, set: {
@@ -51,12 +63,14 @@ struct PaymentSend: View {
          })
         return NavigationView {
             VStack {
-              Section {
+              VStack {
                 Text("Payment creation date:")
                 if (event.timestamp != nil) {
-                   Text("\(event.timestamp!, formatter: dateFormatter)").padding(.bottom, 100)
+                   Text("\(event.timestamp!, formatter: dateFormatter)")
                 }
               }
+                
+                VStack {
                      VStack(alignment: .leading) {
                         HStack {
                             Spacer()
@@ -83,17 +97,58 @@ struct PaymentSend: View {
                                 self.showBarCodeScanner.toggle()
                               }
                         } else {
-                            HStack {
+                            VStack(alignment: .leading) {
+                                if (self.showPicker) {
+                                    Picker(selection: selectedAccountIndexBinding, label:Text("")) {
+                                            ForEach(0..<self.accounts.count, id: \.self) {
+                                                let acctName = self.accounts[$0].name ?? ""
+                                                if ($0 != self.settings.selectedAccountIndex) {
+                                                  Text("\(acctName)")
+                                                }
+                                            }
+                                    }.onReceive([selectedAccountIndexBinding].publisher.first(), perform: { value in
+                                        if let accountUUIDStr = self.accounts[self.transferToAccountPickerIndex].name {
+                                            self.transferToAccountAddress = accountUUIDStr
+                                            print(" Picker chose->\(self.transferToAccountAddress)")
+                                        }
+                                        
+                                        //self.showPicker = false
+                                    })
+                                }
+//                                else {
+//                                    Picker(selection: selectedAccountIndexBinding, label:Text("")) {
+//                                            ForEach(0..<self.accounts.count, id: \.self) {
+//                                                Text("\(self.accounts[$0].name ?? "")")
+//                                            }
+//                                    }.hidden()
+//                                }
                                 Text("Payee Wallet Address:")
                                 if (self.event.tranzId == nil) {
-                                    HStack {
                                         TextField("Pay to Address", text: send2AddressBinding).background(/*@START_MENU_TOKEN@*/Color.orange/*@END_MENU_TOKEN@*/).font(.subheadline).lineLimit(2)
+                                    HStack {
                                         Button(action: {
                                             UIApplication.shared.endEditing()
                                             self.showBarCodeScanner = true
                                         }) {
-                                            Image(systemName: "qrcode")
-                                            .foregroundColor(.secondary)
+                                            Image(systemName: "qrcode").font(Font.system(.largeTitle))
+                                            .foregroundColor(.secondary).frame(maxWidth: .infinity)
+                                                
+                                        }
+                                        Button(action: {
+                                            UIApplication.shared.endEditing()
+                                            self.showPicker = true
+                                        }) {
+                                            Image(systemName: "arrowshape.zigzag.forward").font(Font.system(.largeTitle))
+                                            .foregroundColor(.secondary).frame(maxWidth: .infinity)
+                                                
+                                        }
+                                        Button(action: {
+                                            UIApplication.shared.endEditing()
+                                            self.showBarCodeScanner = true
+                                        }) {
+                                            Image(systemName: "person.crop.circle").font(Font.system(.largeTitle))
+                                            .foregroundColor(.secondary).frame(maxWidth: .infinity)
+                                                
                                         }
                                     }
                                 } else {
@@ -108,14 +163,16 @@ struct PaymentSend: View {
                     }
                     if (self.event.tranzId == nil) {
                       Text("Pay amount (in nano ERGs):")
-                      TextField("eg. 10000000000", text: send2AmtBinding).keyboardType(.numberPad).background(/*@START_MENU_TOKEN@*/Color.orange/*@END_MENU_TOKEN@*/).padding(.bottom,50)
+                      TextField("eg. 10000000000", text: send2AmtBinding).keyboardType(.numberPad).background(/*@START_MENU_TOKEN@*/Color.orange/*@END_MENU_TOKEN@*/)
                     } else {
                         HStack {
                             Text("Paid amount:")
                                 Text("\(getSentAmtFormatted())").foregroundColor(/*@START_MENU_TOKEN@*/Color.orange/*@END_MENU_TOKEN@*/).onTapGesture{ self.isShowingNanos.toggle() }
                         }
                     }
-                }.padding(.bottom, 50)
+                }
+            }
+                
                      NavigationLink(destination: TransactionDetails(payeeAddress: self.event.sendToAddress ?? "",
                                                                     ergoTransactionId:self.event.tranzId ?? "",
                                                                     manager: self.manager
@@ -127,6 +184,10 @@ struct PaymentSend: View {
                          }
                     }.disabled(notProperTranzId()) // NavigationLink
             } // VStack
+            .frame(minWidth: 0,
+                    maxWidth: .infinity,
+                    minHeight: 0,
+                    maxHeight: .infinity)
         } // NavigationView
         .navigationBarTitle("Send Payment Form", displayMode: .inline)
             .alert(isPresented: $manager.showingPaymentErrorAlert) {
@@ -223,9 +284,9 @@ struct PaymentSend: View {
            //Test data
                    let newPayment_E = Payment_E.init(context: context)
             newPayment_E.memo = "memo goes here"
-//            newPayment_E.sendToAddress = "3WynPS3DCQ8pD21vd6QGdSSThyUVn1fXoDVxn2AGEwFNshvz4Jzi"
-            newPayment_E.sendToAddress = "Now is the time for all good men to come to the aid of their party"
-            newPayment_E.sendToAmount = 1.25
+            newPayment_E.sendToAddress = "3WynPS3DCQ8pD21vd6QGdSSThyUVn1fXoDVxn2AGEwFNshvz4Jzi"
+//            newPayment_E.sendToAddress = "Now is the time for all good men to come to the aid of their party"
+            newPayment_E.sendToAmount = 1250000000
             
                    newPayment_E.timestamp = Date()
             return PaymentSend(event: newPayment_E).environment(\.managedObjectContext, context)
