@@ -15,6 +15,7 @@ extension Account_E /*: Identifiable*/ {
         let newAccount_E = self.init(context: managedObjectContext)
         newAccount_E.id = UUID()
         newAccount_E.name = name
+        newAccount_E.addresses = ""
         
         do {
             try  managedObjectContext.save()
