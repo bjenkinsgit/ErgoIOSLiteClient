@@ -177,9 +177,9 @@ class HttpAuth: ObservableObject {
             var request = URLRequest(url: url)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "accept")
-            let api_key_encoded = api_key.addingPercentEncoding(withAllowedCharacters: .alphanumerics)
+            //let api_key_encoded = api_key.addingPercentEncoding(withAllowedCharacters: .alphanumerics)
 
-            request.setValue(api_key_encoded, forHTTPHeaderField: "api_key")
+            request.setValue(api_key, forHTTPHeaderField: "api_key")
             self.error_reason = ""
             self.error_detail = ""
             self.error_code = 0
@@ -204,7 +204,7 @@ class HttpAuth: ObservableObject {
                       self.error_reason = responseERROR.reason
                       self.error_detail = responseERROR.detail
                       self.error_code = responseERROR.error
-                      //self.showingPaymentErrorAlert = true
+                      self.showingPaymentErrorAlert = true
                    }
                     } else {
                         print("Woah, don't know what happened in the getWalletAddresses() method...")

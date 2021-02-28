@@ -29,6 +29,7 @@ struct PaymentSend: View {
      @State private var transferToAccountAddress = ""
      @State private var transferToAccountPickerIndex = 0
      @State private var showPicker = false
+     @State var otherAccounts:[Account_E]
      @ObservedObject private var keyboard = KeyboardResponder()
      @FetchRequest(entity: Account_E.entity(), sortDescriptors: []) var accounts : FetchedResults<Account_E>
 
@@ -100,19 +101,31 @@ struct PaymentSend: View {
                             VStack(alignment: .leading) {
                                 if (self.showPicker) {
                                     Picker(selection: selectedAccountIndexBinding, label:Text("")) {
-                                            ForEach(0..<self.accounts.count, id: \.self) {
-                                                let acctName = self.accounts[$0].name ?? ""
-                                                if ($0 != self.settings.selectedAccountIndex) {
-                                                  Text("\(acctName)")
-                                                }
+                                            ForEach(0..<self.otherAccounts.count, id: \.self) {
+                                                //if ($0 != self.settings.selectedAccountIndex) {
+                                                  Text("\(self.otherAccounts[$0].name ?? "")")
+                                                //}
                                             }
                                     }.onReceive([selectedAccountIndexBinding].publisher.first(), perform: { value in
-                                        if let accountUUIDStr = self.accounts[self.transferToAccountPickerIndex].name {
-                                            self.transferToAccountAddress = accountUUIDStr
-                                            print(" Picker chose->\(self.transferToAccountAddress)")
+                                        let account_e = self.accounts[self.transferToAccountPickerIndex]
+                                        if let accountName = account_e.name, let addresses = account_e.addresses {
+                                            if (self.transferToAccountPickerIndex != self.settings.selectedAccountIndex) {
+                                               print(" Picker chose->\(accountName), addresses->\(addresses)")
+                                               self.send2Address = addresses
+                                                self.showPicker = false
+                                            }
+                                        } else if let accountName = account_e.name {
+                                            print(" Picker chose->\(accountName), addresses->NIL")
                                         }
                                         
-                                        //self.showPicker = false
+                                        
+                                    })
+                                    .onAppear(perform: {
+                                        if let firstAccount = self.otherAccounts.first {
+                                           if (self.send2Address.isEmpty) {
+                                               self.send2Address = firstAccount.addresses ?? ""
+                                           }
+                                        }
                                     })
                                 }
 //                                else {
@@ -144,12 +157,12 @@ struct PaymentSend: View {
                                         }
                                         Button(action: {
                                             UIApplication.shared.endEditing()
-                                            self.showBarCodeScanner = true
+                                            
                                         }) {
                                             Image(systemName: "person.crop.circle").font(Font.system(.largeTitle))
                                             .foregroundColor(.secondary).frame(maxWidth: .infinity)
                                                 
-                                        }
+                                        }.disabled(true)
                                     }
                                 } else {
                                     Text(self.send2Address).foregroundColor(/*@START_MENU_TOKEN@*/Color.orange/*@END_MENU_TOKEN@*/).multilineTextAlignment(.leading)
@@ -256,6 +269,8 @@ struct PaymentSend: View {
          let string = event.sendToAmount==0 ? "" : String(format: "%12.0f", event.sendToAmount)
          self.send2Amt = string
          self.memo = event.memo ?? ""
+         let accountName = self.accounts[self.settings.selectedAccountIndex].name
+         self.otherAccounts = accounts.filter( {$0.value(forKey: "name") as! String != accountName! })
      }
 
        func sendPayment() {
@@ -289,7 +304,7 @@ struct PaymentSend: View {
             newPayment_E.sendToAmount = 1250000000
             
                    newPayment_E.timestamp = Date()
-            return PaymentSend(event: newPayment_E).environment(\.managedObjectContext, context)
+            return PaymentSend(event: newPayment_E, otherAccounts: [Account_E]()).environment(\.managedObjectContext, context)
         }
     }
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19C57" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20D74" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
     <entity name="Account_E" representedClassName=".Account_E" syncable="YES" codeGenerationType="class">
+        <attribute name="addresses" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String" minValueString="3"/>
     </entity>
@@ -14,7 +15,7 @@
         <userInfo/>
     </entity>
     <elements>
+        <element name="Account_E" positionX="261" positionY="234" width="128" height="74"/>
         <element name="Payment_E" positionX="261" positionY="189" width="128" height="133"/>
-        <element name="Account_E" positionX="261" positionY="234" width="128" height="73"/>
     </elements>
 </model>

@@ -65,7 +65,7 @@ struct MasterView: View {
         List {
             ForEach(self.events, id: \.self) { event in
                 NavigationLink(
-                    destination: PaymentSend(event: event)
+                    destination: PaymentSend(event: event, otherAccounts: [Account_E]())
                 ) {
                     VStack {
                       Text("\(event.timestamp!, formatter: dateFormatter)").font(.headline)
