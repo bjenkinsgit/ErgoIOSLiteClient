@@ -112,7 +112,7 @@ struct PaymentSend: View {
                                             if (self.transferToAccountPickerIndex != self.settings.selectedAccountIndex) {
                                                print(" Picker chose->\(accountName), addresses->\(addresses)")
                                                self.send2Address = addresses
-                                                self.showPicker = false
+                                                self.showPicker.toggle()
                                             }
                                         } else if let accountName = account_e.name {
                                             print(" Picker chose->\(accountName), addresses->NIL")
@@ -128,13 +128,6 @@ struct PaymentSend: View {
                                         }
                                     })
                                 }
-//                                else {
-//                                    Picker(selection: selectedAccountIndexBinding, label:Text("")) {
-//                                            ForEach(0..<self.accounts.count, id: \.self) {
-//                                                Text("\(self.accounts[$0].name ?? "")")
-//                                            }
-//                                    }.hidden()
-//                                }
                                 Text("Payee Wallet Address:")
                                 if (self.event.tranzId == nil) {
                                         TextField("Pay to Address", text: send2AddressBinding).background(/*@START_MENU_TOKEN@*/Color.orange/*@END_MENU_TOKEN@*/).font(.subheadline).lineLimit(2)

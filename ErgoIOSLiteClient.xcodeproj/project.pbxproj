@@ -11,6 +11,7 @@
 		E70BDE5423DB945D00100CC5 /* NodeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70BDE5323DB945D00100CC5 /* NodeInfo.swift */; };
 		E70BDE5623DB9A5800100CC5 /* Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70BDE5523DB9A5800100CC5 /* Parameters.swift */; };
 		E70BDE5823DB9B5300100CC5 /* NodeInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70BDE5723DB9B5300100CC5 /* NodeInfoView.swift */; };
+		E711D64C25EC3EA4002B5924 /* OtherAccountsPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E711D64B25EC3EA3002B5924 /* OtherAccountsPicker.swift */; };
 		E7244C5224437294008BE622 /* SyncStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7244C5124437294008BE622 /* SyncStatusView.swift */; };
 		E750821823DF50F200FD74C9 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E750821723DF50F200FD74C9 /* CircularProgressView.swift */; };
 		E750821A23DF635200FD74C9 /* CircularActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E750821923DF635200FD74C9 /* CircularActivityIndicator.swift */; };
@@ -67,6 +68,7 @@
 		E70BDE5323DB945D00100CC5 /* NodeInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeInfo.swift; sourceTree = "<group>"; };
 		E70BDE5523DB9A5800100CC5 /* Parameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parameters.swift; sourceTree = "<group>"; };
 		E70BDE5723DB9B5300100CC5 /* NodeInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeInfoView.swift; sourceTree = "<group>"; };
+		E711D64B25EC3EA3002B5924 /* OtherAccountsPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherAccountsPicker.swift; sourceTree = "<group>"; };
 		E7244C5124437294008BE622 /* SyncStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncStatusView.swift; sourceTree = "<group>"; };
 		E750821723DF50F200FD74C9 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		E750821923DF635200FD74C9 /* CircularActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularActivityIndicator.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 				E7ACEE2B23BCF38D00ABB500 /* Payment_E.swift */,
 				E7ACEE7023BD63A100ABB500 /* Payments.swift */,
 				E7ACEE4723BD1F8100ABB500 /* PaymentSend.swift */,
+				E711D64B25EC3EA3002B5924 /* OtherAccountsPicker.swift */,
 				E7ACEE3123BCF39100ABB500 /* Preview Content */,
 				E7ACEE2923BCF38D00ABB500 /* SceneDelegate.swift */,
 				E7ACEE6923BD249A00ABB500 /* SecureStore.h */,
@@ -362,6 +365,7 @@
 				E7ACEE4D23BD20ED00ABB500 /* Digest32.swift in Sources */,
 				E7ACEE6B23BD24D400ABB500 /* Utils.swift in Sources */,
 				E7F7641024155B4300C21D9A /* SyncTimer.swift in Sources */,
+				E711D64C25EC3EA4002B5924 /* OtherAccountsPicker.swift in Sources */,
 				E7ACEE6223BD242B00ABB500 /* SecureStoreQueryable.swift in Sources */,
 				E7ACEE5323BD214D00ABB500 /* Registers.swift in Sources */,
 				E7ACEE4A23BD209500ABB500 /* HttpAuth.swift in Sources */,
