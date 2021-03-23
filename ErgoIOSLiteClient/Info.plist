@@ -24,6 +24,8 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>This app needs access to the camera, to be able to read barcodes.</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Access to contacts allows you to pull p2pk address from contacts that have a custom field titled 'ergo'.</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>This app uses Biometrics to load sensitive ERGO privacy key data</string>
 	<key>UIApplicationSceneManifest</key>

@@ -12,7 +12,6 @@ import CoreData
 struct Payments: View {
     @Environment(\.managedObjectContext) var viewContext
     @EnvironmentObject var settings: UserSettings
-    
 
     var body: some View {
         NavigationView {
@@ -50,6 +49,7 @@ struct MasterView: View {
 
     var fetchRequest: FetchRequest<Payment_E>
     var events: FetchedResults<Payment_E> { fetchRequest.wrappedValue }
+    @State var paymentsPayee = PaymentsPayee(payeeNameIn: "",payeeP2PKin: "")
 
     @Environment(\.managedObjectContext) var viewContext
     

@@ -364,6 +364,7 @@ class HttpAuth: ObservableObject {
                   self.error_reason = responseERROR.reason
                   self.error_code = responseERROR.error
                   let notEnoughBoxesStr = "No enough boxes to assemble a transaction"
+                  let failedToFindBoxesToAssmbleStr = "Failed to find boxes to assemble a transaction"
                   let walletIsLockedStr = "Wallet is locked"
                   let notEnoughBoxesResp = "Your payment is in process.  However...there is not enough transaction activity yet to provide a transaction ID at this time..."
                   if (responseERROR.detail.contains(notEnoughBoxesStr) || responseERROR.detail.contains(walletIsLockedStr) ) {
@@ -375,7 +376,11 @@ class HttpAuth: ObservableObject {
                     }
                     }
                    else {
-                    self.error_detail = responseERROR.detail
+                    if (responseERROR.detail.contains(failedToFindBoxesToAssmbleStr)) {
+                        self.error_detail = "Insufficient funds to cover payment!"
+                    } else {
+                       self.error_detail = responseERROR.detail
+                    }
                   }
                }
             }
