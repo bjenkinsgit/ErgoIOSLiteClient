@@ -18,8 +18,29 @@ class UserSettings: ObservableObject {
     @Published var fullHeightVal = UInt64(0)
     @Published var headersHeightVal = UInt64(0)
     @Published var progressBarValue: CGFloat = 0
+    @Published var paymentsPayees = [PaymentsPayee]()
+    @Published var currentPayee = ""
     
     var description: String {
         return "fullHeightVal=\(self.fullHeightVal), headersHeightVal=\(self.headersHeightVal)"
     }
+    
+    func createPaymentsPayee(name: String, p2pk: String) -> PaymentsPayee {
+        return PaymentsPayee(payeeNameIn: name, payeeP2PKin: p2pk)
+    }
 }
+
+class PaymentsPayee {
+    var payeeName: String = ""
+    var payeeP2PK: String = ""
+    
+    init(payeeNameIn: String, payeeP2PKin: String) {
+        payeeName = payeeNameIn
+        payeeP2PK = payeeP2PKin
+    }
+    
+    init() {}
+}
+
+
+

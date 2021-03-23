@@ -8,6 +8,7 @@
 
 import SwiftUI
 import LocalAuthentication
+import Contacts
 
 extension UIApplication {
     func endEditing() {
@@ -20,7 +21,7 @@ struct PaymentSend: View {
     @State var secureStoreWithGenericPwd: SecureStore!
      @ObservedObject var manager = HttpAuth()
      @EnvironmentObject var settings: UserSettings
-     @State private var send2Address = ""
+//     @State private var send2Address = ""
      @State private var send2Amt = ""
      @State private var isShowingNanos = true
      @State private var memo = ""
@@ -29,9 +30,14 @@ struct PaymentSend: View {
      @State private var transferToAccountAddress = ""
      @State private var transferToAccountPickerIndex = 0
      @State private var showPicker = false
+     @State private var showingContactPayees = false
      @State var otherAccounts:[Account_E]
      @ObservedObject private var keyboard = KeyboardResponder()
      @FetchRequest(entity: Account_E.entity(), sortDescriptors: []) var accounts : FetchedResults<Account_E>
+     let keysToFetch = [CNContactGivenNameKey, CNContactFamilyNameKey, CNContactMiddleNameKey, CNContactRelationsKey] as [CNKeyDescriptor]
+     let store = CNContactStore()
+//     var payeeDict: [(String, String)]=[]
+    
 
 
       var body: some View {
@@ -50,9 +56,9 @@ struct PaymentSend: View {
         })
 
          let send2AddressBinding = Binding<String>(get: {
-             self.send2Address
+            self.settings.currentPayee
          }, set: {
-             self.send2Address = $0
+            self.settings.currentPayee = $0
             self.checkIsOkToMakePmt()
          })
 
@@ -93,7 +99,7 @@ struct PaymentSend: View {
                             CarBode2(supportBarcode: [.qr]) //Set type of barcode you want to scan
                             .interval(delay: 5.0) //event will trigger every 5 seconds
                                .found {
-                                self.send2Address = $0
+                                self.settings.currentPayee = $0
                                 self.checkIsOkToMakePmt()
                                 self.showBarCodeScanner.toggle()
                               }
@@ -106,24 +112,15 @@ struct PaymentSend: View {
                                                   Text("\(self.otherAccounts[$0].name ?? "")")
                                                 //}
                                             }
+                                    }.onTapGesture {
+                                        setPayeeAddressToPickedAccount()
                                     }.onReceive([selectedAccountIndexBinding].publisher.first(), perform: { value in
-                                        let account_e = self.accounts[self.transferToAccountPickerIndex]
-                                        if let accountName = account_e.name, let addresses = account_e.addresses {
-                                            if (self.transferToAccountPickerIndex != self.settings.selectedAccountIndex) {
-                                               print(" Picker chose->\(accountName), addresses->\(addresses)")
-                                               self.send2Address = addresses
-                                                self.showPicker.toggle()
-                                            }
-                                        } else if let accountName = account_e.name {
-                                            print(" Picker chose->\(accountName), addresses->NIL")
-                                        }
-                                        
-                                        
+                                        setPayeeAddressToPickedAccount()
                                     })
                                     .onAppear(perform: {
                                         if let firstAccount = self.otherAccounts.first {
-                                           if (self.send2Address.isEmpty) {
-                                               self.send2Address = firstAccount.addresses ?? ""
+                                           if (self.settings.currentPayee.isEmpty) {
+                                            self.settings.currentPayee = firstAccount.addresses ?? ""
                                            }
                                         }
                                     })
@@ -142,23 +139,26 @@ struct PaymentSend: View {
                                         }
                                         Button(action: {
                                             UIApplication.shared.endEditing()
-                                            self.showPicker = true
+                                            self.showPicker.toggle()
                                         }) {
                                             Image(systemName: "arrowshape.zigzag.forward").font(Font.system(.largeTitle))
                                             .foregroundColor(.secondary).frame(maxWidth: .infinity)
-                                                
+                                            
                                         }
                                         Button(action: {
                                             UIApplication.shared.endEditing()
+                                            self.showingContactPayees.toggle()
                                             
                                         }) {
                                             Image(systemName: "person.crop.circle").font(Font.system(.largeTitle))
                                             .foregroundColor(.secondary).frame(maxWidth: .infinity)
                                                 
-                                        }.disabled(true)
+                                        }.sheet(isPresented: $showingContactPayees) {
+                                            PayeesFromContacts(showingContactPayees: $showingContactPayees)
+                                        }
                                     }
                                 } else {
-                                    Text(self.send2Address).foregroundColor(/*@START_MENU_TOKEN@*/Color.orange/*@END_MENU_TOKEN@*/).multilineTextAlignment(.leading)
+                                    Text(self.settings.currentPayee).foregroundColor(/*@START_MENU_TOKEN@*/Color.orange/*@END_MENU_TOKEN@*/).multilineTextAlignment(.leading)
                                 }
                             }.padding(.bottom, 10)
                         } 
@@ -216,6 +216,44 @@ struct PaymentSend: View {
 
       }
     
+    func setPayeeAddressToPickedAccount() {
+        let account_e = self.otherAccounts[self.transferToAccountPickerIndex]
+        if let accountName = account_e.name, let addresses = account_e.addresses {
+            if (self.settings.currentPayee != addresses) {
+               print(" Picker chose->\(accountName), addresses->\(addresses)")
+                self.settings.currentPayee = addresses
+               
+            }
+        }
+}
+    func pickAPayeeFromContacts() {
+        let request = CNContactFetchRequest(keysToFetch: keysToFetch )
+        var contacts = [CNContact]()
+        self.settings.paymentsPayees.removeAll()
+//        var localPayeeDict: [(String, String)]=[]
+        do {
+            try store.enumerateContacts(with: request) { (contact, stop) in
+                contacts.append(contact)
+                let fname = contact.givenName
+                let lname = contact.familyName
+                    for (relation) in contact.contactRelations {
+                        if (relation.label=="ergo") {
+                            let p2pkval = relation.value
+                            let x = p2pkval.name
+                            print(fname, lname, x)
+                            let payee = self.settings.createPaymentsPayee(name: "\(fname) \(lname)", p2pk: "\(x)")
+                            self.settings.paymentsPayees.append(payee)
+                            //localPayeeDict.append(contentsOf: [("\(fname) \(lname)","\(x)")])
+                        } // if
+                    } // for
+            }
+        } catch {
+            print("Failed to fetch contact, error: \(error)")
+            // Handle the error
+        }
+    }
+    
+    
     func getSentAmtFormatted() -> String {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
@@ -250,30 +288,31 @@ struct PaymentSend: View {
     }
 
     func checkIsOkToMakePmt() {
-        let localtid = manager.tranzId
-        print("tranzId = \(localtid)")
-        isOkToMakePmt = self.send2Amt.count > 0 && manager.tranzId.count==0 && self.memo.count > 3 && self.send2Address.count > 15
+//        let localtid = manager.tranzId
+//        print("tranzId = \(localtid)")
+        isOkToMakePmt = self.send2Amt.count > 0 && manager.tranzId.count==0 && self.memo.count > 3 && self.settings.currentPayee.count > 15
     }
     
     func initForm() {
         print(event.tranzId ?? "NO Tranz id")
-         self.send2Address = event.sendToAddress ?? ""
+        self.settings.currentPayee = event.sendToAddress ?? ""
          manager.tranzId = event.tranzId ?? ""
          let string = event.sendToAmount==0 ? "" : String(format: "%12.0f", event.sendToAmount)
          self.send2Amt = string
          self.memo = event.memo ?? ""
          let accountName = self.accounts[self.settings.selectedAccountIndex].name
          self.otherAccounts = accounts.filter( {$0.value(forKey: "name") as! String != accountName! })
+         pickAPayeeFromContacts()
      }
 
        func sendPayment() {
             let amt: Int64? = Int64(self.send2Amt)
-            if (amt != nil && self.send2Address.count > 0) {
-                self.manager.sendPaymentRequest(self.settings.account.ergoApiUrl, self.settings.account.authkey, self.send2Address, amt!,
+            if (amt != nil && self.settings.currentPayee.count > 0) {
+                self.manager.sendPaymentRequest(self.settings.account.ergoApiUrl, self.settings.account.authkey, self.settings.currentPayee, amt!,
                                                 self.settings.account.authKeyPwd,completionHandler: { (transid: String)  in
                     DispatchQueue.main.async {
                         self.event.tranzId = transid
-                        self.event.sendToAddress = self.send2Address
+                        self.event.sendToAddress = self.settings.currentPayee
                         self.event.memo = self.memo
                         self.event.sendToAmount = Double(self.send2Amt) ?? 0.0
                         self.isOkToMakePmt = false
@@ -291,6 +330,7 @@ struct PaymentSend: View {
            let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
            //Test data
                    let newPayment_E = Payment_E.init(context: context)
+//            let paymentsPayee = PaymentsPayee.init()
             newPayment_E.memo = "memo goes here"
             newPayment_E.sendToAddress = "3WynPS3DCQ8pD21vd6QGdSSThyUVn1fXoDVxn2AGEwFNshvz4Jzi"
 //            newPayment_E.sendToAddress = "Now is the time for all good men to come to the aid of their party"

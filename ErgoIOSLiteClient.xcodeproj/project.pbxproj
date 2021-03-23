@@ -60,6 +60,7 @@
 		E7ACEE8923BE7D1400ABB500 /* KeyboardResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE8823BE7D1400ABB500 /* KeyboardResponder.swift */; };
 		E7B2B1B223C2DD5B0045ABB7 /* WalletAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B2B1B123C2DD5B0045ABB7 /* WalletAPI.swift */; };
 		E7B2B1B523C666820045ABB7 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B2B1B423C666820045ABB7 /* Account.swift */; };
+		E7D0FD4525FE5E60000007B7 /* PayeesFromContacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D0FD4425FE5E60000007B7 /* PayeesFromContacts.swift */; };
 		E7F7641024155B4300C21D9A /* SyncTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F7640F24155B4300C21D9A /* SyncTimer.swift */; };
 /* End PBXBuildFile section */
 
@@ -121,6 +122,7 @@
 		E7ACEE8823BE7D1400ABB500 /* KeyboardResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardResponder.swift; sourceTree = "<group>"; };
 		E7B2B1B123C2DD5B0045ABB7 /* WalletAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletAPI.swift; sourceTree = "<group>"; };
 		E7B2B1B423C666820045ABB7 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		E7D0FD4425FE5E60000007B7 /* PayeesFromContacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayeesFromContacts.swift; sourceTree = "<group>"; };
 		E7F7640F24155B4300C21D9A /* SyncTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncTimer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -178,6 +180,7 @@
 				E70BDE5723DB9B5300100CC5 /* NodeInfoView.swift */,
 				E7ACEE2B23BCF38D00ABB500 /* Payment_E.swift */,
 				E7ACEE7023BD63A100ABB500 /* Payments.swift */,
+				E7D0FD4425FE5E60000007B7 /* PayeesFromContacts.swift */,
 				E7ACEE4723BD1F8100ABB500 /* PaymentSend.swift */,
 				E711D64B25EC3EA3002B5924 /* OtherAccountsPicker.swift */,
 				E7ACEE3123BCF39100ABB500 /* Preview Content */,
@@ -332,6 +335,7 @@
 				E7ACEE8323BD876E00ABB500 /* ErgoTree.swift in Sources */,
 				E7ACEE7B23BD86AC00ABB500 /* ErgoTransactionDataInput.swift in Sources */,
 				E7244C5224437294008BE622 /* SyncStatusView.swift in Sources */,
+				E7D0FD4525FE5E60000007B7 /* PayeesFromContacts.swift in Sources */,
 				E7B2B1B523C666820045ABB7 /* Account.swift in Sources */,
 				E7ACEE7F23BD872300ABB500 /* TransactionBoxId.swift in Sources */,
 				E750821823DF50F200FD74C9 /* CircularProgressView.swift in Sources */,
@@ -512,7 +516,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ErgoIOSLiteClient/ErgoIOSLiteClient.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_ASSET_PATHS = "\"ErgoIOSLiteClient/Preview Content\"";
 				DEVELOPMENT_TEAM = RKMCP6WLZG;
 				ENABLE_PREVIEWS = YES;
@@ -535,7 +539,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ErgoIOSLiteClient/ErgoIOSLiteClient.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_ASSET_PATHS = "\"ErgoIOSLiteClient/Preview Content\"";
 				DEVELOPMENT_TEAM = RKMCP6WLZG;
 				ENABLE_PREVIEWS = YES;
