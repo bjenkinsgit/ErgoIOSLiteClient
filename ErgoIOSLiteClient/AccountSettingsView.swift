@@ -12,6 +12,7 @@ import LocalAuthentication
 struct AccountSettingsView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Environment(\.managedObjectContext) var moc
+    @EnvironmentObject var settings: UserSettings
     @ObservedObject var account_E: Account_E
     @State var secureStoreWithGenericPwd: SecureStore!
     @State private var isUnlocked = false
@@ -26,7 +27,7 @@ struct AccountSettingsView: View {
     @State private var authKeyString : String = ""
     @State private var authKeyPasswordString: String = ""
     @State private var ergoNodeUrlString: String = "http://192.168.1.x:9053"
-    
+    @FetchRequest(entity: Account_E.entity(), sortDescriptors: []) var accounts : FetchedResults<Account_E>
 
     @State private var url = ""
     
@@ -234,6 +235,10 @@ struct AccountSettingsView: View {
             self.account.authkey = self.authKeyString
             self.account.authKeyPwd = self.authKeyPasswordString
             self.account.ergoApiUrl = self.ergoNodeUrlString
+            self.settings.isAuthenticated = true
+            if (0 == self.settings.selectedAccountIndex) {
+                self.settings.selectedAccountIndex = self.accounts.count
+            }
       } catch (let e) {
         print("EXCEPTION: Saving authkey and authKeyPwd failed with \(e.localizedDescription).")
       }

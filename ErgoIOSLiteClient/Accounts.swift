@@ -28,7 +28,8 @@ struct Accounts: View {
       NavigationView {
         VStack {
             List {
-                ForEach(accounts, id: \.id) { account_e in
+                
+                ForEach(self.accounts, id: \.id) { account_e in
                     NavigationLink(
                         destination: AccountSettingsView(account_E: account_e, account: Account())
                     )
@@ -50,7 +51,6 @@ struct Accounts: View {
         }
         }.navigationViewStyle(StackNavigationViewStyle())
     }
-    
 }
 
 
