@@ -20,6 +20,8 @@ class UserSettings: ObservableObject {
     @Published var progressBarValue: CGFloat = 0
     @Published var paymentsPayees = [PaymentsPayee]()
     @Published var currentPayee = ""
+    @Published var numAccounts = 0
+    //@FetchRequest(entity: Account_E.entity(), sortDescriptors: []) var accounts : FetchedResults<Account_E>
     
     var description: String {
         return "fullHeightVal=\(self.fullHeightVal), headersHeightVal=\(self.headersHeightVal)"

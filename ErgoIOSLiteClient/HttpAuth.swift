@@ -24,6 +24,7 @@ class HttpAuth: ObservableObject {
     @Published var isWalletInitialized = false
     @Published var isWalletUnlocked = false
     @Published var walletAddresses: [String] = []
+    @Published var ignoreCommsError = false
 
     func handle(_ error: Error) {
         switch error {
@@ -31,12 +32,22 @@ class HttpAuth: ObservableObject {
         case URLError.notConnectedToInternet,
              URLError.networkConnectionLost,
              URLError.cannotLoadFromNetwork:
-            self.isOnline = false
-            self.error_reason = "Network Error"
-            self.error_detail = error.localizedDescription
-            let urlerror = error as! URLError
-            self.error_code = urlerror.errorCode
-            self.showingPaymentErrorAlert = true
+                self.isOnline = false
+                self.error_reason = "Network Error"
+                self.error_detail = error.localizedDescription
+                let urlerror = error as! URLError
+                self.error_code = urlerror.errorCode
+                self.showingPaymentErrorAlert = true
+        case URLError.timedOut:
+            if (!self.ignoreCommsError) {
+                self.isOnline = false
+                self.error_reason = "Network Error"
+                self.error_detail = error.localizedDescription
+                let urlerror = error as! URLError
+                self.error_code = urlerror.errorCode
+                self.showingPaymentErrorAlert = true
+                self.ignoreCommsError.toggle()
+            }
         case URLError.appTransportSecurityRequiresSecureConnection:
             self.isOnline = false
             self.error_reason = "URLError"

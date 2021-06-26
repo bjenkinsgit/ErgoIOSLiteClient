@@ -169,7 +169,10 @@ struct PaymentSend: View {
                     }
                     if (self.event.tranzId == nil) {
                       Text("Pay amount (in nano ERGs):")
-                      TextField("eg. 10000000000", text: send2AmtBinding).keyboardType(.numberPad).background(/*@START_MENU_TOKEN@*/Color.orange/*@END_MENU_TOKEN@*/)
+                      TextField("eg. 10000000000", text: send2AmtBinding)
+                        .keyboardType(.numberPad)
+                        
+                        .background(/*@START_MENU_TOKEN@*/Color.orange/*@END_MENU_TOKEN@*/)
                     } else {
                         HStack {
                             Text("Paid amount:")
@@ -194,6 +197,7 @@ struct PaymentSend: View {
                     maxWidth: .infinity,
                     minHeight: 0,
                     maxHeight: .infinity)
+            .adaptsToKeyboard()
         } // NavigationView
         .navigationBarTitle("Send Payment Form", displayMode: .inline)
             .alert(isPresented: $manager.showingPaymentErrorAlert) {
@@ -203,8 +207,6 @@ struct PaymentSend: View {
         }
         .onAppear(perform: initForm)
          .navigationViewStyle(StackNavigationViewStyle())
-        .padding(.bottom, keyboard.currentHeight)
-        .edgesIgnoringSafeArea(.bottom)
         .animation(.easeOut(duration: 0.16))
         .navigationBarItems(trailing:
          HStack {
@@ -300,8 +302,8 @@ struct PaymentSend: View {
          let string = event.sendToAmount==0 ? "" : String(format: "%12.0f", event.sendToAmount)
          self.send2Amt = string
          self.memo = event.memo ?? ""
-         let accountName = self.accounts[self.settings.selectedAccountIndex].name
-         self.otherAccounts = accounts.filter( {$0.value(forKey: "name") as! String != accountName! })
+        let accountName = self.accounts[self.settings.selectedAccountIndex].name
+        self.otherAccounts = self.accounts.filter( {$0.value(forKey: "name") as! String != accountName! })
          pickAPayeeFromContacts()
      }
 

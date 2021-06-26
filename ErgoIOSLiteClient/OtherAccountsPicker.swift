@@ -53,7 +53,7 @@ struct OtherAccountsPicker: View {
     
     func initForm() {
          let accountName = self.accounts[self.settings.selectedAccountIndex].name
-         self.otherAccounts = accounts.filter( {$0.value(forKey: "name") as! String != accountName! })
+        self.otherAccounts = self.accounts.filter( {$0.value(forKey: "name") as! String != accountName! })
      }
 
 }
