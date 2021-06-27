@@ -208,7 +208,7 @@ struct AccountSettingsView: View {
     
     func initForm() {
         guard let accountstr = self.account_E.id else { return }
-        let assocdomain = "56F7835N8P.com.amc.ergo.client1.\(accountstr)"
+        let assocdomain = CloudKitAndKeyChainData.securityDomain + accountstr.uuidString
         let genericPwdQueryable = GenericPasswordQueryable(service: assocdomain)
         secureStoreWithGenericPwd = SecureStore(secureStoreQueryable: genericPwdQueryable)
         self.loadAuthData()
@@ -220,7 +220,7 @@ struct AccountSettingsView: View {
             if (!self.account.isLoaded) {
                // self.account_E.name = $accountName.wrappedValue
                 guard let accountstr = self.account_E.id else { return }
-                let assocdomain = "56F7835N8P.com.amc.ergo.client1.\(accountstr)"
+                let assocdomain = CloudKitAndKeyChainData.securityDomain + accountstr.uuidString
                 let genericPwdQueryable = GenericPasswordQueryable(service: assocdomain)
                 secureStoreWithGenericPwd = SecureStore(secureStoreQueryable: genericPwdQueryable)
             }
