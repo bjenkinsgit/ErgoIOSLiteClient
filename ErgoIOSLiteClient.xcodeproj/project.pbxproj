@@ -79,6 +79,7 @@
 		E750821F23E20B9E00FD74C9 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		E7715F9723ECBB780072898A /* KeyboardAwareModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAwareModifier.swift; sourceTree = "<group>"; };
 		E773E38F23C24E86002F9D73 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		E7ABE5FE2688A56500AEFA47 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.markdown; };
 		E7ACEE2123BCF38D00ABB500 /* Ergo Lite Client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ergo Lite Client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7ACEE2423BCF38D00ABB500 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E7ACEE2723BCF38D00ABB500 /* ErgoIOSLiteClient.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ErgoIOSLiteClient.xcdatamodel; sourceTree = "<group>"; };
@@ -143,6 +144,7 @@
 		E7ACEE1823BCF38D00ABB500 = {
 			isa = PBXGroup;
 			children = (
+				E7ABE5FE2688A56500AEFA47 /* README.md */,
 				E7EFC145260A29E70080DA45 /* AdaptsToKeyboard.swift */,
 				E7ACEE2323BCF38D00ABB500 /* ErgoIOSLiteClient */,
 				E7ACEE2223BCF38D00ABB500 /* Products */,
