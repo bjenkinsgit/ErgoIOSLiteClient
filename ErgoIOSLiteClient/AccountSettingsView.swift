@@ -236,9 +236,9 @@ struct AccountSettingsView: View {
             self.account.authKeyPwd = self.authKeyPasswordString
             self.account.ergoApiUrl = self.ergoNodeUrlString
             self.settings.isAuthenticated = true
-            if (0 == self.settings.selectedAccountIndex) {
-                self.settings.selectedAccountIndex = self.accounts.count
-            }
+            //if (0 == self.settings.selectedAccountIndex) {
+                self.settings.selectedAccountIndex = self.accounts.count - 1
+            //}
       } catch (let e) {
         print("EXCEPTION: Saving authkey and authKeyPwd failed with \(e.localizedDescription).")
       }
