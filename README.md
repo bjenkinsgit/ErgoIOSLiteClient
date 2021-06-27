@@ -1,4 +1,4 @@
-#  ERGO iOS Lite Client version 1.0, build 12 for iOS 13.2+
+#  ERGO iOS Lite Client version 1.0, build 14 for iOS 13.2+
 
 The Ergo iOS lite client is an iOS app that tethers to any existing, running ERGO reference node you have running somewhere on your network.  As long as you can reach your ERGO reference node from your phone via a web-browser, you can interact with it in a more mobile friendly way with this app.
 
