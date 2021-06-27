@@ -20,6 +20,7 @@
 		E750822023E20B9E00FD74C9 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E750821F23E20B9E00FD74C9 /* UserSettings.swift */; };
 		E7715F9823ECBB780072898A /* KeyboardAwareModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7715F9723ECBB780072898A /* KeyboardAwareModifier.swift */; };
 		E773E39023C24E86002F9D73 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E773E38F23C24E86002F9D73 /* Media.xcassets */; };
+		E783BB132688DC180006E282 /* CloudKitAndKeyChainData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E783BB122688DC180006E282 /* CloudKitAndKeyChainData.swift */; };
 		E7ACEE2523BCF38D00ABB500 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE2423BCF38D00ABB500 /* AppDelegate.swift */; };
 		E7ACEE2823BCF38D00ABB500 /* ErgoIOSLiteClient.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE2623BCF38D00ABB500 /* ErgoIOSLiteClient.xcdatamodeld */; };
 		E7ACEE2A23BCF38D00ABB500 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACEE2923BCF38D00ABB500 /* SceneDelegate.swift */; };
@@ -79,6 +80,7 @@
 		E750821F23E20B9E00FD74C9 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		E7715F9723ECBB780072898A /* KeyboardAwareModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAwareModifier.swift; sourceTree = "<group>"; };
 		E773E38F23C24E86002F9D73 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		E783BB122688DC180006E282 /* CloudKitAndKeyChainData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitAndKeyChainData.swift; sourceTree = "<group>"; };
 		E7ABE5FE2688A56500AEFA47 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.markdown; };
 		E7ACEE2123BCF38D00ABB500 /* Ergo Lite Client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ergo Lite Client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7ACEE2423BCF38D00ABB500 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 				E7ACEE6E23BD43A300ABB500 /* CarBode2.swift */,
 				E750821923DF635200FD74C9 /* CircularActivityIndicator.swift */,
 				E750821723DF50F200FD74C9 /* CircularProgressView.swift */,
+				E783BB122688DC180006E282 /* CloudKitAndKeyChainData.swift */,
 				E7ACEE2D23BCF38D00ABB500 /* ContentView.swift */,
 				E7ACEE3D23BCF3B900ABB500 /* ErgoIOSLiteClient.entitlements */,
 				E7ACEE2623BCF38D00ABB500 /* ErgoIOSLiteClient.xcdatamodeld */,
@@ -367,6 +370,7 @@
 				E7ACEE7D23BD86E300ABB500 /* ErgoTransactionOutput.swift in Sources */,
 				E7ACEE5723BD21AE00ABB500 /* PaymentRequest.swift in Sources */,
 				E7ACEE8923BE7D1400ABB500 /* KeyboardResponder.swift in Sources */,
+				E783BB132688DC180006E282 /* CloudKitAndKeyChainData.swift in Sources */,
 				E70BDE5223D8F06A00100CC5 /* Error_UnlockWallet.swift in Sources */,
 				E7ACEE6423BD244400ABB500 /* InternetProtocol.swift in Sources */,
 				E7ACEE2A23BCF38D00ABB500 /* SceneDelegate.swift in Sources */,
@@ -522,7 +526,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ErgoIOSLiteClient/ErgoIOSLiteClient.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_ASSET_PATHS = "\"ErgoIOSLiteClient/Preview Content\"";
 				DEVELOPMENT_TEAM = RKMCP6WLZG;
 				ENABLE_PREVIEWS = YES;
@@ -545,7 +549,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ErgoIOSLiteClient/ErgoIOSLiteClient.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_ASSET_PATHS = "\"ErgoIOSLiteClient/Preview Content\"";
 				DEVELOPMENT_TEAM = RKMCP6WLZG;
 				ENABLE_PREVIEWS = YES;
