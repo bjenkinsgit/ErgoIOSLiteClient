@@ -98,7 +98,25 @@ struct ContentView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 100, height: 100)
+                        .contextMenu {
+                            Button(action: {
+                                let pasteboard = UIPasteboard.general
+                                pasteboard.image = generateQRCode()
+                            }) {
+                                Text("Copy to clipboard")
+                                Image(systemName: "doc.on.clipboard")
+                            }
+                        }
                     Text("\(self.manager.walletAddresses.first ?? "")")
+                        .contextMenu {
+                            Button(action: {
+                                let pasteboard = UIPasteboard.general
+                                pasteboard.string = self.manager.walletAddresses.first ?? ""
+                            }) {
+                                Text("Copy to clipboard")
+                                Image(systemName: "doc.on.clipboard")
+                            }
+                        }
                 }
                 if (self.accounts.count > 0) {
                     VStack {
@@ -349,8 +367,8 @@ struct ContentView: View {
                 self.settings.account.authkey = authkey
                 self.settings.account.authKeyPwd = authKeyPwd
                 self.settings.account.ergoApiUrl = ergoApiUrl
-                if (self.settings.account.authkey.count > 0 && self.settings.account.authKeyPwd.count > 0 &&
-                    self.settings.account.ergoApiUrl.count > 0) {
+//                if (self.settings.account.authkey.count > 0 && self.settings.account.authKeyPwd.count > 0 &&
+                if (self.settings.account.ergoApiUrl.count > 0) {
                     self.isAccountSettingsFilledIn = true
                     self.manager.getInfo(self.settings.account.ergoApiUrl, completionHandler: { (result: NodeInfo)  in
                         //guard let fHeight = result.fullHeight, let hHeight = result.headersHeight else {

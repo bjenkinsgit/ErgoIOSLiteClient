@@ -137,8 +137,8 @@ struct AccountSettingsView: View {
       //self.account.authKeyPwd
       //self.account.authkey
       let retval = (self.accountName.count > 2 &&
-              self.authKeyString.count > 15 &&
-              self.authKeyPasswordString.count > 3 &&
+              self.authKeyString.count > 4 &&
+              //self.authKeyPasswordString.count > 3 &&
               self.ergoNodeUrlString.count > 15)
       return !retval
       //!self.account.accountSettingsChanged && !self.isAccountNameChanged
